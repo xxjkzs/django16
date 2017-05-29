@@ -1,5 +1,6 @@
 `<!-- post.html -->
 {% extends "base.html" %}
+{% load markdown_deux_tags %}
 {% block title %}
 	{{ post.title }} --blog test
 {% endblock title %}
@@ -8,5 +9,5 @@
 	<a style="font-family:Tahoma;" href="/"> Back to Homepage </a>
 {% endblock headmessage %}
 {% block content %}
-	<p style="font-family:Tahoma; font-size:12pt;letter-spacing:2pt;"> {{ post.body }} </p>
+	<p style="font-family:Tahoma; font-size:12pt;letter-spacing:2pt;"> {{ post.body | markdown }} </p>
 {% endblock content %}
