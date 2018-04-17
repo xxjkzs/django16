@@ -22,7 +22,8 @@ class Product(models.Model):
 	name = models.CharField(max_length=20)
 	price = models.PositiveIntegerField()
 	size = models.CharField(max_length=1,choices=SIZES)
+	qty = models.IntegerField(default=0)
 
 	# the following code seems NOT working
-	def __unicode__(self):
+	def __str__(self):
 		return self.name

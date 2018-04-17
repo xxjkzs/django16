@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cellphone List</title>
+</head>
+<body>
+	<h2> Cellphone List </h2>
+	<hr>
+	<table width=400 border=1 bgcolor="#cfc">
+		<tr><td>Name</td><td>Price</td><td>Stock</td></tr>
+		{% for p in products %}
+			<tr>
+				<td>{{p.name}}</td>
+				<td>{{p.price}}</td>
+				<td>{{p.qty}}</td>
+			</tr>
+		{% endfor %}
+	</table>
+</body>
+</html>

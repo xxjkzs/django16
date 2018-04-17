@@ -14,7 +14,12 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from myapp.views import about, listing, disp_detail,index
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^about/',about),
+    url(r'^list/$',listing),
+    url(r'^list/([0-9a-zA-Z]+)/$',disp_detail),
+    url(r'^$',index),
 ]
