@@ -20,4 +20,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$',views.index),
     url(r'^(\d{1})/$', views.index, name = 'tv-url'),
+    url(r'^othertv/$', views.othertv),
+    url(r'othertv/(\d{1})/$', views.othertv, name = 'othertv-url'),
 ]

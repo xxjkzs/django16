@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %} Other TV {% endblock %}
+{% block tvname %} {{ tv.name }} {% endblock %}
+{% block menu %}
+	<ul class="nav navbar-nav">
+		<li class="active"><a href="/">Home</a></li>
+		<li><a href="{% url 'othertv-url' 0 %}">HEROS3</a></li>
+		<li><a href="{% url 'othertv-url' 1 %}">DISCOVERYY</a></li>
+	</ul>
+{% endblock  %}
+{% block content %}
+	<div class="container">
+		<div id="tvcode" align="center">
+			<!-- HEROS3 iframe src="//player.bilibili.com/player.html?aid=431527&cid=658069&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe-->
+			<!-- DISCOVERY iframe src="//player.bilibili.com/player.html?aid=2644473&cid=4128935&page=6" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe-->
+			<iframe src="//player.bilibili.com/player.html?{{ tv.tvcode }}"  height="720" width="960" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+		</div>
+	</div>
+{% endblock %}

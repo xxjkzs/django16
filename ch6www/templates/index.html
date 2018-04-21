@@ -1,42 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Home</title>
-	<!-- Version 3.3.7, the book uses version 3.3.6 -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-</head>
-<body>
-	<!--p>Hello World</p>
-	<hr>
-	<em>{{ now }}</em-->
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<!--a class="navbar-brand" href="#"> Now Playing {{ tv.name }}</a-->
-				<div class="navbar-brand" align="center">
-					{% load staticfiles %}
-					<img src="{% static "images/logo.png" %}" alt="logo" width="150" height="100">
-					{{ tv.name }}
-				</div>
-			</div>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="/">Home</a></li>
-				<li><a href="{% url 'tv-url' 0 %}">GOKURAKU JODO</a></li>
-				<li><a href="{% url 'tv-url' 1 %}">OEASY</a></li>
-			</ul>
-		</div>
-	</nav>
+{% extends "base.html" %}
+{% block title %} Embedded Video Page {% endblock %}
+{% block tvname %} {{ tv.name }} {% endblock %}
+{% block menu %}
+	<ul class="nav navbar-nav">
+		<li class="active"><a href="/">Home</a></li>
+		<li><a href="{% url 'tv-url' 0 %}">GOKURAKU JODO</a></li>
+		<li><a href="{% url 'tv-url' 1 %}">OEASY</a></li>
+	</ul>
+{% endblock  %}
+{% block content %}
 	<div class="container">
 		<div id="tvcode" align="center">
-			<!--iframe src="//player.bilibili.com/player.html?aid=6449135&cid=10486949&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-			<iframe src="//player.bilibili.com/player.html?aid=1290353&cid=1961804&page=9" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe-->
 			<iframe src="//player.bilibili.com/player.html?{{ tv.tvcode }}"  height="720" width="960" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 		</div>
 	</div>
-	<div class="panel panel-default">
-		<div class="panel-footer"><em>{{ now }}</em></div>
-	</div>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-</body>
-</html>
+
+{% endblock %}
