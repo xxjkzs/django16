@@ -24,4 +24,6 @@ urlpatterns = [
     url(r'^othertv/(\d{1})/$', views.othertv, name = 'othertv-url'),
     url(r'^carlist/$',views.carlist),
     url(r'^carlist/(\d{1})/$',views.carlist, name = 'carlist-url'),
+    url(r'^carprice/$',views.carprice),
+    url(r'^carprice/(\d{1})/$',views.carprice, name = 'carprice-url'),
 ]

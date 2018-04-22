@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Second-hand Cars</title>
+	<title>Price List</title>
 </head>
 <body>
-	<h2>Welcome !</h2>
+	{% load humanize %}
+	<h2>Price Details</h2>
 	<table>
 		<tr>
 		{% for m in car_maker  %}
 			<td bgcolor="#cfc">
-				<a href="{% url 'carlist-url' forloop.counter0 %}">{{ m }}</a>
+				<a href="{% url 'carprice-url' forloop.counter0 %}">{{ m }}</a>
 			</td>
 		{% endfor %}
 		</tr>
@@ -17,11 +18,11 @@
 	{% for c in cars %}
 		{% if forloop.first %}
 			<table>
-				<tr><td>Maker</td><td>Model</td></tr>
+				<tr><td>Maker</td><td>Model</td><td>Price</td></tr>
 		{% endif %}
 
 				<tr bgcolor="{% cycle '#eee' '#ccc' %}">
-					<td>{{ maker_name }}</td><td>{{ c }}</td>
+					<td>{{ maker_name }}</td><td>{{ c.model }}</td><td align="right">CNY{{ c.price | floatformat:2 | intcomma }}</td>
 				</tr>
 		{% if forloop.last %}
 			</table>
@@ -29,5 +30,8 @@
 		{% empty %}
 		<h3>Maker <em>{{ maker_name }}</em> NO CARS AVAILABLE. </h3>
 	{% endfor %}
+	<hr>
+	{% now "D M Y h:m:s a" %}
+	{% lorem 2 p random %}
 </body>
 </html>
