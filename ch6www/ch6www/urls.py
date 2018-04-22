@@ -21,5 +21,7 @@ urlpatterns = [
     url(r'^$',views.index),
     url(r'^(\d{1})/$', views.index, name = 'tv-url'),
     url(r'^othertv/$', views.othertv),
-    url(r'othertv/(\d{1})/$', views.othertv, name = 'othertv-url'),
+    url(r'^othertv/(\d{1})/$', views.othertv, name = 'othertv-url'),
+    url(r'^carlist/$',views.carlist),
+    url(r'^carlist/(\d{1})/$',views.carlist, name = 'carlist-url'),
 ]

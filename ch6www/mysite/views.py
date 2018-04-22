@@ -14,6 +14,7 @@ def index(request,tvno='0'):
 				{'name':'Oeasy','tvcode':'aid=1290353&cid=1961804&page=9'},]
 	template = get_template('index.html')
 	now = datetime.now()
+	hour = now.timetuple().tm_hour
 	tvno = tvno
 	tv = tv_list[int(tvno)]
 	html = template.render(locals())
@@ -26,5 +27,21 @@ def othertv(request,tvno='0'):
 	now = datetime.now()
 	tvno = tvno
 	tv = tv_list[int(tvno)]
+	html = template.render(locals())
+	return HttpResponse(html)
+
+def carlist(request,maker = 0):
+	car_maker = ['SAAB','Ford','Honda','Mazda','Nissan','Toyota']
+	carlist = [ [],
+	['Fiesta','Foucus','Modeo','EcoSport','Kuga','Mustang'],
+	['Fit','Odessy','CR-V','City','NSX'],
+	['Mazda3','Mazda5','Mazda6','CX-3','CX-5','MX-5'],
+	['Tida','March','Livina','Sentra','Teana','X-Trail','Juke','Murano'],
+	['Camary','Altis','Yaris','86','Prius','Vios','RAV4','Wish']
+	]
+	maker = int(maker)
+	maker_name = car_maker[maker]
+	cars = carlist[maker]
+	template = get_template('carlist.html')
 	html = template.render(locals())
 	return HttpResponse(html)

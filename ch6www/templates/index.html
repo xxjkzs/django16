@@ -2,17 +2,34 @@
 {% block title %} Embedded Video Page {% endblock %}
 {% block tvname %} {{ tv.name }} {% endblock %}
 {% block menu %}
+{% for t in tv_list %}
 	<ul class="nav navbar-nav">
+		<li>
+			<a href="{% url 'tv-url' forloop.counter0 %}">
+				{{ t.name }}
+			</a>
+		</li>
+	</ul>		
+{% endfor %}
+	<!--ul class="nav navbar-nav">
 		<li class="active"><a href="/">Home</a></li>
 		<li><a href="{% url 'tv-url' 0 %}">GOKURAKU JODO</a></li>
 		<li><a href="{% url 'tv-url' 1 %}">OEASY</a></li>
-	</ul>
+	</ul-->
 {% endblock  %}
 {% block content %}
 	<div class="container">
 		<div id="tvcode" align="center">
+			<br>
+			{% if hour > 18 %}
+				Good night.
+			{% elif  hour < 10 %}
+				Good morning.
+			{% else %}
+				Good day.
+			{% endif %}
+			<br>
 			<iframe src="//player.bilibili.com/player.html?{{ tv.tvcode }}"  height="720" width="960" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 		</div>
 	</div>
-
 {% endblock %}
