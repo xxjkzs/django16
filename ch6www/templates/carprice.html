@@ -18,11 +18,10 @@
 	{% for c in cars %}
 		{% if forloop.first %}
 			<table>
-				<tr><td>Maker</td><td>Model</td><td>Price</td></tr>
+				<tr><td>Maker</td><td>Model</td><td>Price</td><td>Stock</td></tr>
 		{% endif %}
-
-				<tr bgcolor="{% cycle '#eee' '#ccc' %}">
-					<td>{{ maker_name }}</td><td>{{ c.model }}</td><td align="right">CNY{{ c.price | floatformat:2 | intcomma }}</td>
+				<tr bgcolor="{% cycle '#eee' '#ccc' '#aaa' %}">
+					<td>{{ maker_name }}</td><td>{{ c.model }}</td><td align="right">CNY{{ c.price | floatformat:2 | intcomma }}</td><td>{{ c.stock }}</td>
 				</tr>
 		{% if forloop.last %}
 			</table>

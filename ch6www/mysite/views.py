@@ -49,15 +49,15 @@ def carlist(request,maker = 0):
 def carprice(request,maker = 0):
 	car_maker = ['Ford','Honda','Mazda']
 	carlist = [ 
-		[{'model':'Fiesta','price':203500},
-		{'model':'Foucus','price':650000},
-		{'model':'Modeo','price':900000}],
-		[[{'model':'Fit','price':450000},
-		{'model':'City','price':150000},
-		{'model':'NSX','price':1200000}],],
-		[[{'model':'Mazda3','price':329999},
-		{'model':'Mazda5','price':605000},
-		{'model':'Mazda6','price':850000}],]
+		[{'model':'Fiesta','price':203500,'stock':5},
+		{'model':'Foucus','price':650000,'stock':15},
+		{'model':'Modeo','price':900000,'stock':25}],
+		[{'model':'Fit','price':450000,'stock':35},
+		{'model':'City','price':150000,'stock':51},
+		{'model':'NSX','price':1200000,'stock':52}],
+		[{'model':'Mazda3','price':329999,'stock':54},
+		{'model':'Mazda5','price':605000,'stock':55},
+		{'model':'Mazda6','price':850000,'stock':52}]
 	]
 	maker = int(maker)
 	maker_name = car_maker[maker]
