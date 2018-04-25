@@ -19,8 +19,8 @@ class PModel(models.Model):
 		return self.name
 
 class Product(models.Model):
-	pmodel = models.ForeignKey(PModel,on_delete=models.CASCADE)
-	nickname = models.CharField(max_length=15,default='Great Value Secondhand Phones')
+	pmodel = models.ForeignKey(PModel,on_delete=models.CASCADE,verbose_name='型号')
+	nickname = models.CharField(max_length=15,default='Great Value Secondhand Phones',verbose_name='摘要' )
 	discription = models.TextField(default='N/A')
 	year = models.PositiveIntegerField(default=2018)
 	price = models.PositiveIntegerField(default=0)

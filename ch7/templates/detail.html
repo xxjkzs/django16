@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %} {{product.nickname|default:"Phone not found"}}{% endblock title %}
+{% block content %}
+<div class="container" align="center">
+	{% if product %}
+		<table>
+			<tr><td align="center"><h3>{{ product.nickname }}</h3></td></tr>
+			<tr><td align="center">{{ product.discription}} </td></tr>
+			<tr><td align="center">Produced in {{product.year}} </td></tr>
+			<tr><td align="center">￥{{ product.price}} </td></tr>
+		{% for image in images %}
+			{% if forloop.first %}
+				<tr><td align="center">
+				{% endif %}	
+					<img src="{{image.url}}" width="350">
+			{% if forloop.last %}
+				</td></tr>
+			{% endif %}
+		{{ empty }}
+			<tr><td align="center">Image not available.</td></tr>
+		{% endfor %}
+		</table>
+	{% else %}
+	<h2>Phone not found.</h2>
+	{% endif %}
+</div>
+{% endblock content %}
