@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %} I got something to say.{% endblock title %}
+{% block content %}
+	<div class="container" align="center">
+		Phone List
+		{% for p in products  %}
+		{% if forloop.first %}
+			<table>
+				<tr bgcolor="#ccc">
+					<td width="250">Stock</td>
+					<td width="150">Brand/Model</td>
+					<td width="50">Year</td>
+					<td>Price</td>
+				</tr>
+		{% endif %}
+				<tr bgcolor="{% cycle "#fcf" "#cfc" %}">
+					<td> <a href="{% url "detail-url" p.id %}">{{ p.nickname }}</a></td>
+					<td>{{ p.pmodel.maker.name }}/{{ p.pmodel }}</td>
+					<td>{{ p.year }}</td>
+					<td align="right">{{ p.price }}</td>
+				</tr>
+		{% if forloop.last %}
+			</table>	
+		{% endif %}
+
+		{% empty %}
+		<h3>Sorry, we don't have that phone in stock.</h3>
+		{% endfor %}
+	</div>
+{% endblock content %}
