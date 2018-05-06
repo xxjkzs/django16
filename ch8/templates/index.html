@@ -2,29 +2,39 @@
 {% block title %} I got something to say.{% endblock title %}
 {% block content %}
 	<div class="container" align="center">
-		Phone List
-		{% for p in products  %}
-		{% if forloop.first %}
-			<table>
-				<tr bgcolor="#ccc">
-					<td width="250">Stock</td>
-					<td width="150">Brand/Model</td>
-					<td width="50">Year</td>
-					<td>Price</td>
-				</tr>
+		<form name="my form" action="/" method="GET" >
+			<label for="user_id">Your ID:</label>
+			<input id="user_id" type="text" name="user_id">
+			<label for="user_pass">Your Password</label>
+			<input id="user_pass" type="password" name="user_pass">
+			<input type="submit" value="login">
+			<input type="reset" value="reset">
+		</form>
+	Your ID: {{ uid | default:"No input"}} <br>
+		{% if verified %}
+			<em>VERIFIED !</em>
+		{% else %}
+			<em>WRONG USERNAME OR PASSWORD !</em>
 		{% endif %}
-				<tr bgcolor="{% cycle "#fcf" "#cfc" %}">
-					<td> <a href="{% url "detail-url" p.id %}">{{ p.nickname }}</a></td>
-					<td>{{ p.pmodel.maker.name }}/{{ p.pmodel }}</td>
-					<td>{{ p.year }}</td>
-					<td align="right">{{ p.price }}</td>
-				</tr>
-		{% if forloop.last %}
-			</table>	
-		{% endif %}
-
+		
+	<label for="byear">Year of  Birth</label>
+		<select name="byear">
+			{% for year in years  %}
+				<option value="{{ year }}"> {{ year }} </option>
+			{% endfor %}
+		</select>
+		<br>
+	Favorate Color:
+		{% for c in ufcolor %}
+			{{ c }}
 		{% empty %}
-		<h3>Sorry, we don't have that phone in stock.</h3>
+			No color selected.
 		{% endfor %}
+		<input type="checkbox" name="fcolor" value="Green"> Green
+		<input type="checkbox" name="fcolor" value="Red"> Red
+	 	<input type="checkbox" name="fcolor" value="Blue"> Blue
+		<input type="checkbox" name="fcolor" value="Yellow"> Yellow
+		<input type="checkbox" name="fcolor" value="Orange"> Orange
+		<br>
 	</div>
 {% endblock content %}
