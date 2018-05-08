@@ -3,12 +3,19 @@
 {% block content %}
 	<div class="container" align="center">
 		<form name="my form" action="/" method="GET" >
+			Present Mood: <br>
+			{% for m in moods %}
+				<input type="radio" name="mood" value="{{ m.status }}" > {{ m.status }}
+			{% endfor %}
+			<br>
+			Mood Bulletin : <br/>
+			<textarea name="user_post" id="" cols="70" rows="3"></textarea><br>
 			<label for="user_id">Your ID:</label>
 			<input id="user_id" type="text" name="user_id">
 			<label for="user_pass">Your Password</label>
 			<input id="user_pass" type="password" name="user_pass">
-			<input type="submit" value="login">
-			<input type="reset" value="reset">
+			<input type="submit" value="Post">
+			<input type="reset" value="Reset">
 		</form>
 	Your ID: {{ uid | default:"No input"}} <br>
 		{% if verified %}
@@ -37,4 +44,24 @@
 		<input type="checkbox" name="fcolor" value="Orange"> Orange
 		<br>
 	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading" align="center">
+					<h3>~~宝宝心里苦，有话只在这里说~~</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% for p in posts %}
+		{% cycle "<div class='row'> <div class='col-md-4'>" "<div class='col-md-4'>"  "<div class='col-md-4'>"  %}
+			<div class="panel panel-primary">
+				<div class="panel-heading"> 【{{ p.nickname }}】feel {{ p.mood }} </div>
+				<div class="panel-body"> {{ p.message|linebreaks}} </div>
+				<div class="panel-footer" align="right"><i><small> {{ p.pub_time }} </small></i></div>
+			</div>
+		<!-- HOW the following </div>  and "" "" work ? -->
+		</div>
+		{% cycle "" "" "</div>" %}
+	{% endfor %}
 {% endblock content %}
