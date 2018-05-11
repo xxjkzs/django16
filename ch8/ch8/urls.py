@@ -18,5 +18,6 @@ from mysite import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', views.index)
+    url(r'^$', views.index),
+    url(r'^(\d+)/(\w+)/$', views.index)
 ]
