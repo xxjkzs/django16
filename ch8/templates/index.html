@@ -11,13 +11,16 @@
 		}
 	</script>
 	<div class="container" align="center">
+		{% if message %}
+			<div class="alert alert-warning"> {{ message }} </div>
+		{% endif %}
 		<form name="my form" action="/" method="GET" >
-			Present Mood: <br>
+			Current Mood: <br>
 			{% for m in moods %}
 				<input type="radio" name="mood" value="{{ m.status }}" > {{ m.status }}
 			{% endfor %}
 			<br>
-			Mood Bulletin : <br/>
+			Mood Bulletin : 
 			<textarea name="user_post" id="" cols="70" rows="3"></textarea><br>
 			<label for="user_id">Your ID:</label>
 			<input id="user_id" type="text" name="user_id">
@@ -32,26 +35,6 @@
 		{% else %}
 			<em>WRONG USERNAME OR PASSWORD !</em>
 		{% endif %}
-		
-	<label for="byear">Year of  Birth</label>
-		<select name="byear">
-			{% for year in years  %}
-				<option value="{{ year }}"> {{ year }} </option>
-			{% endfor %}
-		</select>
-		<br>
-	Favorate Color:
-		{% for c in ufcolor %}
-			{{ c }}
-		{% empty %}
-			No color selected.
-		{% endfor %}
-		<input type="checkbox" name="fcolor" value="Green"> Green
-		<input type="checkbox" name="fcolor" value="Red"> Red
-	 	<input type="checkbox" name="fcolor" value="Blue"> Blue
-		<input type="checkbox" name="fcolor" value="Yellow"> Yellow
-		<input type="checkbox" name="fcolor" value="Orange"> Orange
-		<br>
 	</div>
 	<div class="row">
 		<div class="col-md-12">
@@ -74,7 +57,5 @@
 		</div>
 		{% cycle "" "" "</div>" %}
 	{% endfor %}
-	{% if message %}
-		<div class="alert alert-warning"> {{ message }} </div>
-	{% endif %}
+	</div>
 {% endblock content %}

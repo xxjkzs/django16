@@ -20,7 +20,7 @@ def index(request,pid=None,del_pass=None):
 		message = 'All forms need to be filled in.'
 	if del_pass and pid:
 		try:
-			post =models.Post.objects.get(id=pid)
+			post = models.Post.objects.get(id=pid)
 		except:
 			post = None
 		if post:
@@ -36,3 +36,13 @@ def index(request,pid=None,del_pass=None):
 		message = 'Post saved, please remember your editting password [{}] '.format(upass)
 	html = template.render(locals())
 	return HttpResponse(html)
+
+def listing(request):
+	template = get_template("list.html")
+	posts = models.Post.objects.filter(enabled=True).order_by('-pub_time')[:150]
+	moods = models.Mood.objects.all()
+	html = template.render(locals())
+	return HttpResponse(html)
+
+def posting(request):
+	pass
