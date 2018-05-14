@@ -5,7 +5,8 @@
 		{% if message %}
 			<div class="alert alert-warning"> {{ message }} </div>
 		{% endif %}
-		<form  {% csrf_token %} name="my form" action="/" method="GET"  >
+		<form name="my form" action="/" method="GET">
+			{% csrf_token %}
 			Current Mood: <br/>
 			{% for m in moods %}
 				<input type="radio" name="mood" value="{{ m.status }}" > {{ m.status }}

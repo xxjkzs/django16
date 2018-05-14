@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.template.loader import get_template
+from django.template import RequestContext
 from django.http import HttpResponse
 from mysite import models
 # Create your views here.
@@ -46,5 +47,7 @@ def posting(request):
 	template = get_template("post.html")
 	moods = models.Mood.objects.all()
 	message = "All fields need to be filled  for a new post."
-	html = template.render(locals())
+	request_context = RequestContext(request)
+	request_context.push(locals())
+	html = template.render(request_context)
 	return HttpResponse(html)
