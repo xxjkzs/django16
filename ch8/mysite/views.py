@@ -5,8 +5,6 @@ from mysite import models
 # Create your views here.
 
 def index(request,pid=None,del_pass=None):
-	years = range(1960,2020)
-	ufcolor = request.GET.getlist('fcolor')
 	template = get_template('index.html')
 	posts = models.Post.objects.filter(enabled=True).order_by('-pub_time')[:30]
 	moods = models.Mood.objects.all()
@@ -45,4 +43,8 @@ def listing(request):
 	return HttpResponse(html)
 
 def posting(request):
-	pass
+	template = get_template("post.html")
+	moods = models.Mood.objects.all()
+	message = "All fields need to be filled  for a new post."
+	html = template.render(locals())
+	return HttpResponse(html)
