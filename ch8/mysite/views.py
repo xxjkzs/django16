@@ -53,7 +53,19 @@ def posting(request):
 	return HttpResponse(html)
 
 def contact(request):
-	form = forms.ContactForm
+	if request.method == 'POST':
+		form = forms.ContactForm(request.POST)
+		if form.is_valid():
+			message = 'Thanks for your suggestion.'
+			user_name = form.cleaned_data['user_name']
+			user_city = form.cleaned_data['user_city']
+			user_school = form.cleaned_data['user_school']
+			user_email = form.cleaned_data['user_email']
+			user_message = form.cleaned_data['user_message']
+		else:
+			message = 'Please check your input.'
+	else:
+		form = forms.ContactForm
 	template = get_template('contact.html')
 	request_context = RequestContext(request)
 	request_context.push(locals())
