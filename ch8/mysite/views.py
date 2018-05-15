@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.template.loader import get_template
 from django.template import RequestContext
 from django.http import HttpResponse
-from mysite import models
+from mysite import models,forms
 # Create your views here.
 
 def index(request,pid=None,del_pass=None):
@@ -47,6 +47,14 @@ def posting(request):
 	template = get_template("post.html")
 	moods = models.Mood.objects.all()
 	message = "All fields need to be filled  for a new post."
+	request_context = RequestContext(request)
+	request_context.push(locals())
+	html = template.render(request_context)
+	return HttpResponse(html)
+
+def contact(request):
+	form = forms.ContactForm
+	template = get_template('contact.html')
 	request_context = RequestContext(request)
 	request_context.push(locals())
 	html = template.render(request_context)
