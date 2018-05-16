@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^list/$',views.listing),
     url(r'^post/$',views.posting),
     url(r'^contact/$',views.contact),
+    url(r'^post2db/$',views.post2db),
 ]

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.template.loader import get_template
 from django.template import RequestContext
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.core.mail import EmailMessage
 from mysite import models,forms
 # Create your views here.
@@ -78,6 +78,25 @@ def contact(request):
 	else:
 		form = forms.ContactForm
 	template = get_template('contact.html')
+	request_context = RequestContext(request)
+	request_context.push(locals())
+	html = template.render(request_context)
+	return HttpResponse(html)
+
+
+def post2db(request):
+	if request.method == 'POST':
+		post_form = forms.PostForm(request.POST)
+		if post_form.is_valid():
+			message = "Your message saved."
+			post_form.save()
+			return HttpResponseRedirect('/list/')
+		else:
+			message = "All fields must be filled in."
+	else:
+		post_form = forms.PostForm()
+		message = "All fields must be filled in."
+	template = get_template('post2db.html')
 	request_context = RequestContext(request)
 	request_context.push(locals())
 	html = template.render(request_context)
