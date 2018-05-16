@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.template.loader import get_template
 from django.template import RequestContext
 from django.http import HttpResponse
+from django.core.mail import EmailMessage
 from mysite import models,forms
 # Create your views here.
 
@@ -62,6 +63,16 @@ def contact(request):
 			user_school = form.cleaned_data['user_school']
 			user_email = form.cleaned_data['user_email']
 			user_message = form.cleaned_data['user_message']
+			mail_body = u'''
+			From:{}
+			Citt:{}
+			In School:{}
+			Suggestion:{}'''.format(user_name,user_city,user_school,user_message)
+			email = EmailMessage('New message:',
+				mail_body,
+				user_email,
+				['xxjkzs@foxmail.com'])
+			email.send()
 		else:
 			message = 'Please check your input.'
 	else:

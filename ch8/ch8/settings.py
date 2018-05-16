@@ -104,3 +104,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static'),
 ]
+
+EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+# Fill with your own info
+MAILGUN_ACCESS_KEY = ''
+MAILGUN_SERVER_NAME = ''
