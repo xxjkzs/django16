@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^post/$',views.posting),
     url(r'^contact/$',views.contact),
     url(r'^post2db/$',views.post2db),
+    url(r'^captcha/',include('captcha.urls'))
 ]

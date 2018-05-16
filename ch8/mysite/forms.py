@@ -1,4 +1,5 @@
 from django import forms
+from captcha.fields import CaptchaField
 from mysite import models
 
 class ContactForm(forms.Form):
@@ -19,6 +20,7 @@ class ContactForm(forms.Form):
 
 
 class PostForm(forms.ModelForm):
+	captcha = CaptchaField()
 	class Meta:
 		model = models.Post
 		fields = ['mood','nickname','message','del_pass']
