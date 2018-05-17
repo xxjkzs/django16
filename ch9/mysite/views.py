@@ -15,13 +15,6 @@ def index(request,pid=None,del_pass=None):
 	html = template.render(locals())
 	return HttpResponse(html)
 
-def listing(request):
-	template = get_template("list.html")
-	posts = models.Post.objects.filter(enabled=True).order_by('-pub_time')[:150]
-	moods = models.Mood.objects.all()
-	html = template.render(locals())
-	return HttpResponse(html)
-
 def login(request):
 	if request.method == 'POST':
 		login_form = forms.LoginForm(request.POST)
@@ -44,6 +37,12 @@ def login(request):
 	except:
 		pass
 	return response
+
+def logout(request):
+	response = HttpResponseRedirect('/')
+	response.delete_cookie('username')
+	return response
+
 
 def contact(request):
 	if request.method == 'POST':

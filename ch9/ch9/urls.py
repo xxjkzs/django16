@@ -20,8 +20,8 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index),
     url(r'^(\d+)/(\w+)/$', views.index),
-    url(r'^list/$',views.listing),
     url(r'^login/$',views.login),
+    url(r'^logout/',views.logout),
     url(r'^contact/$',views.contact),
     url(r'^captcha/',include('captcha.urls'))
 ]
