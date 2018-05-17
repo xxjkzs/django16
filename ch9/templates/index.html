@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %} I got something to say.{% endblock title %}
+{% block content %}
+	<script>
+		function go_delete(id){
+			var user_pass = document.getElementById('user_pass').value;
+			if (user_pass != ''){
+				var user = '/' + id + '/' + user_pass;
+				window.location = user;
+			}
+		}
+	</script>
+	<div class="container" align="center">
+		{% if message %}
+			<div class="alert alert-warning"> {{ message }} </div>
+		{% endif %}
+		<form name="my form" action="/" method="GET" >
+			Current Mood: <br>
+			{% for m in moods %}
+				<input type="radio" name="mood" value="{{ m.status }}" > {{ m.status }}
+			{% endfor %}
+			<br>
+			Mood Bulletin : 
+			<textarea name="user_post" id="" cols="70" rows="3"></textarea><br>
+			<label for="user_id">Your ID:</label>
+			<input id="user_id" type="text" name="user_id">
+			<label for="user_pass">Your Password</label>
+			<input id="user_pass" type="password" name="user_pass">
+			<input type="submit" value="Post">
+			<input type="reset" value="Reset">
+		</form>
+	Your ID: {{ uid | default:"No input"}} <br>
+		{% if verified %}
+			<em>VERIFIED !</em>
+		{% else %}
+			<em>WRONG USERNAME OR PASSWORD !</em>
+		{% endif %}
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading" align="center">
+					<h3>~~宝宝心里苦，有话只在这里说~~</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% for p in posts %}
+		{% cycle "<div class='row'> <div class='col-md-4'>" "<div class='col-md-4'>"  "<div class='col-md-4'>"  %}
+			<div class="panel panel-primary">
+				<div class="panel-heading"> 【{{ p.nickname }}】feel {{ p.mood }} </div>
+				<div class="panel-body"> {{ p.message|linebreaks}} </div>
+				<div class="panel-footer" align="right"><i><small> {{ p.pub_time }} </small></i><span class="glyphicon glyphicon-trash" onclick="go_delete({{p.id}})"></span></div>
+
+			</div>
+		<!-- HOW the following </div>  and "" "" work ? -->
+		</div>
+		{% cycle "" "" "</div>" %}
+	{% endfor %}
+	</div>
+{% endblock content %}

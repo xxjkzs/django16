@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %} I got something to say.{% endblock title %}
+{% block content %}
+	<div class="container" align="center">
+		{% if message %}
+			<div class="alert alert-warning"> {{ message }} </div>
+		{% endif %}
+		<form name="my form" action="/" method="GET">
+			{% csrf_token %}
+			Current Mood: <br/>
+			{% for m in moods %}
+				<input type="radio" name="mood" value="{{ m.status }}" > {{ m.status }}
+			{% endfor %}
+			<br/>
+			Mood Bulletin : 
+			<textarea name="user_post" id="" cols="70" rows="3"></textarea><br>
+			<label for="user_id">Your ID:</label>
+			<input id="user_id" type="text" name="user_id">
+			<label for="user_pass">Your Password</label>
+			<input id="user_pass" type="password" name="user_pass"><br/>
+			<input type="submit" value="Post">
+			<input type="reset" value="Reset">
+		</form>
+	</div>
+{% endblock content %}
