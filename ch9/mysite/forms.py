@@ -30,3 +30,13 @@ class PostForm(forms.ModelForm):
 		self.fields['nickname'].label='Nickname'
 		self.fields['message'].label='Message'
 		self.fields['del_pass'].label='Password'
+
+
+class LoginForm(forms.Form):
+	COLORS = [
+		['R','RED'],
+		['G','GREEN'],
+		['B','BLUE'],
+	]
+	username = forms.CharField(label='Your name',max_length=10)
+	usercolor = forms.ChoiceField(label='Fav color',choices=COLORS)

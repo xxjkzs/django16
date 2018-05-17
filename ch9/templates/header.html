@@ -2,16 +2,24 @@
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<div class="navbar-brand" align="center">
-				I got words to say !
+				{% if username %}
+					My Diary ({{username}})
+				{% else %}
+					My Diary
+				{% endif %}
+				
 			</div>
 		</div>
 		<ul class="nav navbar-nav">
 			<li class="active"> <a href="/">Home</a></li>
-			<li><a href="/admin">Admin</a></li>
-			<li><a href="/list">List</a></li>
-			<li><a href="/post">Post</a></li>
-			<li><a href="/contact">Contact</a></li>
-			<li><a href="/post2db">Post2DB</a></li>
+			{% if username %}
+			<li><a href="/logout">Logout</a></li>
+			<li><a href="/write">Write</a></li>
+			<li><a href="/admin">Manage</a></li>
+			{% else %}
+			<li><a href="/login">Login</a></li>
+			<li><a href="/contact">Contact the admin</a></li>
+			{% endif %}
 		</ul>
 	</div>
 	

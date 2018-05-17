@@ -7,12 +7,10 @@ from mysite import models,forms
 # Create your views here.
 
 def index(request,pid=None,del_pass=None):
+	if 'username' in request.COOKIES and 'usercolor' in request.COOKIES:
+		username =request.COOKIES['username']
+		usercolor = request.COOKIES['usercolor']
 	template = get_template('index.html')
-	if request.session.test_cookie_worked():
-		request.session.delete_test_cookie()
-		message = 'Cookie supported.'
-	else:
-		message = 'Cookie not supported.'
 	request.session.set_test_cookie()
 	html = template.render(locals())
 	return HttpResponse(html)
@@ -24,14 +22,28 @@ def listing(request):
 	html = template.render(locals())
 	return HttpResponse(html)
 
-def posting(request):
-	template = get_template("post.html")
-	moods = models.Mood.objects.all()
-	message = "All fields need to be filled  for a new post."
+def login(request):
+	if request.method == 'POST':
+		login_form = forms.LoginForm(request.POST)
+		if login_form.is_valid():
+			username = request.POST['username']
+			usercolor = request.POST['usercolor']
+			message = "Logged in"
+		else:
+			message = "Check your input"
+	else:
+		login_form = forms.LoginForm()
+	template = get_template("login.html")
 	request_context = RequestContext(request)
 	request_context.push(locals())
 	html = template.render(request_context)
-	return HttpResponse(html)
+	response = HttpResponse(html)
+	try:
+		if username:response.set_cookie('username',username)
+		if usercolor:response.set_cookie('usercolor',usercolor)
+	except:
+		pass
+	return response
 
 def contact(request):
 	if request.method == 'POST':
