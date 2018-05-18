@@ -3,16 +3,20 @@ from django.template.loader import get_template
 from django.template import RequestContext
 from django.http import HttpResponse,HttpResponseRedirect
 from django.core.mail import EmailMessage
-from django.contrib import messages
+from django.contrib import messages , auth
+from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 from mysite import models,forms
 # Create your views here.
 
 def index(request,pid=None,del_pass=None):
-	if 'username' in request.session:
-		username = request.session['username']
-		useremail = request.session['useremail']
+	if request.user.is_authenticated():
+		username = request.user.username
+	messages.get_messages(request)
 	template = get_template('index.html')
-	html = template.render(locals())
+	request_context = RequestContext(request)
+	request_context.push(locals())
+	html = template.render(request_context)
 	return HttpResponse(html)
 
 def login(request):
@@ -21,18 +25,17 @@ def login(request):
 		if login_form.is_valid():
 			login_name = request.POST['username'].strip()
 			login_pass = request.POST['password']
-			try:
-				user = models.User.objects.get(name=login_name)
-				if user.password == login_pass:
-					response = redirect('/')
-					request.session['username'] = user.name
-					request.session['useremail'] = user.email
+			user = authenticate(username=login_name,password=login_pass)
+			if user is not None:
+				if user.is_active():
+					auth.login(request,user)
+					print("Successs!")
 					messages.add_message(request,messages.SUCCESS,'Logged in.')
-					return response
+					return redirect('/')
 				else:
-					messages.add_message(request,messages.WARNING,'Invalid password.')
-			except:
-				messages.add_message(request,messages.WARNING,'User not found.')
+					messages.add_message(request,messages.WARNING,'User is not activated.')
+			else:
+				messages.add_message(request,messages.WARNING,'Login failed.')
 		else:
 			messages.add_message(request,messages.INFO,'Check your input.')
 	else:
@@ -46,17 +49,17 @@ def login(request):
 	return response
 
 def logout(request):
-	response = redirect('/')
-	del request.session['username']
-	return response
+	auth.logout(request)
+	messages.add_message(request,messages.INFO,'Logged out.')
+	return redirect('/')
 
+
+@ login_required(login_url='/login/')
 def profile(request):
-	if 'username' in request.session:
-		username = request.session['username']
-	else:
-		return redirect('/login')
+	if request.user.is_authenticated():
+		username = request.user.name
 	try:
-		profile = models.User.objects.get(name=username)
+		profile = User.objects.get(name=username)
 	except:
 		pass
 	template = get_template('profile.html')
