@@ -3,6 +3,7 @@ from django.template.loader import get_template
 from django.template import RequestContext
 from django.http import HttpResponse,HttpResponseRedirect
 from django.core.mail import EmailMessage
+from django.contrib import messages
 from mysite import models,forms
 # Create your views here.
 
@@ -26,13 +27,14 @@ def login(request):
 					response = redirect('/')
 					request.session['username'] = user.name
 					request.session['useremail'] = user.email
+					messages.add_message(request,messages.SUCCESS,'Logged in.')
 					return response
 				else:
-					message = "Invalid Password."
+					messages.add_message(request,messages.WARNING,'Invalid password.')
 			except:
-				message = "Cannot login now."
+				messages.add_message(request,messages.WARNING,'User not found.')
 		else:
-			message = "Check your input."
+			messages.add_message(request,messages.INFO,'Check your input.')
 	else:
 		login_form = forms.LoginForm()
 
