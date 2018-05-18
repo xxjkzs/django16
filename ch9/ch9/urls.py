@@ -23,5 +23,7 @@ urlpatterns = [
     url(r'^login/$',views.login),
     url(r'^logout/',views.logout),
     url(r'^contact/$',views.contact),
-    url(r'^captcha/',include('captcha.urls'))
+    url(r'^captcha/',include('captcha.urls')),
+    # url(r'^write/$',views.write),
+    # url(r'^profile/$',views.profile),
 ]

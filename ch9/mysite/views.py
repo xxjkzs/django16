@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.template.loader import get_template
 from django.template import RequestContext
 from django.http import HttpResponse,HttpResponseRedirect
@@ -7,11 +7,10 @@ from mysite import models,forms
 # Create your views here.
 
 def index(request,pid=None,del_pass=None):
-	if 'username' in request.COOKIES and 'usercolor' in request.COOKIES:
-		username =request.COOKIES['username']
-		usercolor = request.COOKIES['usercolor']
+	if 'username' in request.session:
+		username = request.session['username']
+		useremail = request.session['useremail']
 	template = get_template('index.html')
-	request.session.set_test_cookie()
 	html = template.render(locals())
 	return HttpResponse(html)
 
@@ -19,23 +18,29 @@ def login(request):
 	if request.method == 'POST':
 		login_form = forms.LoginForm(request.POST)
 		if login_form.is_valid():
-			username = request.POST['username']
-			usercolor = request.POST['usercolor']
-			message = "Logged in"
+			login_name = request.POST['username'].strip()
+			login_pass = request.POST['password']
+			try:
+				user = models.User.objects.get(name=login_name)
+				if user.password == login_pass:
+					response = redirect('/')
+					request.session['username'] = user.name
+					request.session['useremail'] = user.email
+					return response
+				else:
+					message = "Invalid Password."
+			except:
+				message = "Cannot login now."
 		else:
-			message = "Check your input"
+			message = "Check your input."
 	else:
 		login_form = forms.LoginForm()
+
 	template = get_template("login.html")
 	request_context = RequestContext(request)
 	request_context.push(locals())
 	html = template.render(request_context)
 	response = HttpResponse(html)
-	try:
-		if username:response.set_cookie('username',username)
-		if usercolor:response.set_cookie('usercolor',usercolor)
-	except:
-		pass
 	return response
 
 def logout(request):

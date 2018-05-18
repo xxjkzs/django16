@@ -33,10 +33,5 @@ class PostForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-	COLORS = [
-		['R','RED'],
-		['G','GREEN'],
-		['B','BLUE'],
-	]
 	username = forms.CharField(label='Your name',max_length=10)
-	usercolor = forms.ChoiceField(label='Fav color',choices=COLORS)
+	password = forms.CharField(label='Password',widget=forms.PasswordInput())
