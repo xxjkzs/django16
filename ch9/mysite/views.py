@@ -44,10 +44,22 @@ def login(request):
 	return response
 
 def logout(request):
-	response = HttpResponseRedirect('/')
-	response.delete_cookie('username')
+	response = redirect('/')
+	del request.session['username']
 	return response
 
+def profile(request):
+	if 'username' in request.session:
+		username = request.session['username']
+	else:
+		return redirect('/login')
+	try:
+		profile = models.User.objects.get(name=username)
+	except:
+		pass
+	template = get_template('profile.html')
+	html = template.render(locals())
+	return HttpResponse(html)
 
 def contact(request):
 	if request.method == 'POST':

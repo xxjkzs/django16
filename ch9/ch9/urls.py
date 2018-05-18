@@ -25,5 +25,5 @@ urlpatterns = [
     url(r'^contact/$',views.contact),
     url(r'^captcha/',include('captcha.urls')),
     # url(r'^write/$',views.write),
-    # url(r'^profile/$',views.profile),
+    url(r'^profile/$',views.profile),
 ]
