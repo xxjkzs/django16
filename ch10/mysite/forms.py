@@ -58,3 +58,15 @@ class DiaryForm(forms.ModelForm):
 			self.fields['weight'].label='Weight'
 			self.fields['note'].label='Notes'
 			self.fields['ddate'].label='Date'
+
+
+class ProfileForm(forms.ModelForm):
+	class Meta:
+		model = models.Profile
+		fields = ['height','male','website']
+
+	def __init__(self,*args,**kwargs):
+		super (ProfileForm,self).__init__(*args,**kwargs)
+		self.fields['height'].label='Height(cm)'
+		self.fields['male'].label='Male?'
+		self.fields['website'].label='Website'

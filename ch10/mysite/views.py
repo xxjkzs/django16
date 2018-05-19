@@ -65,13 +65,26 @@ def logout(request):
 def profile(request):
 	if request.user.is_authenticated():
 		username = request.user.username
+	user = User.objects.get(username=username)
 	try:
-		user = User.objects.get(username=username)
 		profile = models.Profile.objects.get(user=user)
 	except:
-		pass
+		profile = models.Profile(user=user)
+	if request.method == 'POST':
+		profile_form = forms.ProfileForm(request.POST,instance=profile)
+		if profile_form.is_valid():
+			messages.add_message(request,messages.INFO,'Profile updated.')
+			profile_form.save()
+			return redirect('/')
+		else:
+			messages.add_message(request,messages.INFO,'All fields must be modified.')
+	else:
+		profile_form = forms.ProfileForm()
+
 	template = get_template('profile.html')
-	html = template.render(locals())
+	request_context = RequestContext(request)
+	request_context.push(locals())
+	html = template.render(request_context)
 	return HttpResponse(html)
 
 

@@ -28,5 +28,12 @@
 				</div>
 			</div>
 		</div>
+		<form name="myform" action="." method="POST">
+			{% csrf_token %}
+			<table>
+				{{profile_form.as_table}}
+			</table>
+			<input type="submit" value="Update Profile">
+		</form>
 	</div>
 {% endblock content %}
