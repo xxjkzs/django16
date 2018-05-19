@@ -27,7 +27,7 @@ def login(request):
 			login_pass = request.POST['password']
 			user = authenticate(username=login_name,password=login_pass)
 			if user is not None:
-				if user.is_active():
+				if user.is_active:
 					auth.login(request,user)
 					print("Successs!")
 					messages.add_message(request,messages.SUCCESS,'Logged in.')
@@ -57,9 +57,12 @@ def logout(request):
 @ login_required(login_url='/login/')
 def profile(request):
 	if request.user.is_authenticated():
-		username = request.user.name
+		username = request.user.username
+		email = request.user.email
+		firstname = request.user.first_name
+		lastname = request.user.last_name
 	try:
-		profile = User.objects.get(name=username)
+		profile = User.objects.get(username='username')
 	except:
 		pass
 	template = get_template('profile.html')
