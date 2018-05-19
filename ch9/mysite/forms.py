@@ -35,3 +35,26 @@ class PostForm(forms.ModelForm):
 class LoginForm(forms.Form):
 	username = forms.CharField(label='Your name',max_length=10)
 	password = forms.CharField(label='Password',widget=forms.PasswordInput())
+
+
+class DateInput(forms.DateInput):
+	input_type = 'date'
+
+
+class DiaryForm(forms.ModelForm):
+
+	class Meta:
+		model = models.Diary
+		# fields = ['user','budget','weight','note','ddate']
+		fields = ['budget','weight','note','ddate']
+		widgets = {
+			'ddate':DateInput(),
+		}
+
+		def __init__(self,*args,**kwargs):
+			super(DiaryForm,self).init(*args,**kwargs)
+			# self.fields['user'].label='User'
+			self.fields['budget'].label='Expenses'
+			self.fields['weight'].label='Weight'
+			self.fields['note'].label='Notes'
+			self.fields['ddate'].label='Date'

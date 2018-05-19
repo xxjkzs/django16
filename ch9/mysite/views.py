@@ -68,6 +68,36 @@ def profile(request):
 	html = template.render(locals())
 	return HttpResponse(html)
 
+
+@ login_required(login_url='/login/')
+def write(request):
+	if request.user.is_authenticated():
+		username = request.user.username
+		useremail = request.user.email
+	messages.get_messages(request)
+
+	if request.method == 'POST':
+		user = User.objects.get(username=username)
+		diary = models.Diary(user=user)
+		post_form = forms.DiaryForm(request.POST,instance=diary)
+		if post_form.is_valid():
+			messages.add_message(request,messages.INFO,'Saved')
+			post_form.save()
+			return redirect('/')
+		else:
+			messages.add_message(request,messages.INFO,'All fields must be filled.')
+	else:
+		post_form = forms.DiaryForm()
+		messages.add_message(request,messages.INFO,'All fiels must be filled.')
+
+	template = get_template('write.html')
+	request_context = RequestContext(request)
+	request_context.push(locals())
+	html = template.render(request_context)
+	return HttpResponse(html)
+
+
+
 def contact(request):
 	if request.method == 'POST':
 		form = forms.ContactForm(request.POST)
