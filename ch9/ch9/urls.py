@@ -22,7 +22,6 @@ urlpatterns = [
     url(r'^(\d+)/(\w+)/$', views.index),
     url(r'^login/$',views.login),
     url(r'^logout/',views.logout),
-    url(r'^contact/$',views.contact),
     url(r'^captcha/',include('captcha.urls')),
     url(r'^write/$',views.write),
     url(r'^profile/$',views.profile),

@@ -13,7 +13,13 @@ from mysite import models,forms
 def index(request,pid=None,del_pass=None):
 	if request.user.is_authenticated():
 		username = request.user.username
-	messages.get_messages(request)
+		useremail = request.user.email
+		try:
+			user = models.User.objects.get(username=username)
+			diaries = models.Diary.objects.filter(user=user).order_by('-ddate')
+		except:
+			pass
+	
 	template = get_template('index.html')
 	request_context = RequestContext(request)
 	request_context.push(locals())
@@ -91,57 +97,6 @@ def write(request):
 		messages.add_message(request,messages.INFO,'All fiels must be filled.')
 
 	template = get_template('write.html')
-	request_context = RequestContext(request)
-	request_context.push(locals())
-	html = template.render(request_context)
-	return HttpResponse(html)
-
-
-
-def contact(request):
-	if request.method == 'POST':
-		form = forms.ContactForm(request.POST)
-		if form.is_valid():
-			message = 'Thanks for your suggestion.'
-			user_name = form.cleaned_data['user_name']
-			user_city = form.cleaned_data['user_city']
-			user_school = form.cleaned_data['user_school']
-			user_email = form.cleaned_data['user_email']
-			user_message = form.cleaned_data['user_message']
-			mail_body = u'''
-			From:{}
-			Citt:{}
-			In School:{}
-			Suggestion:{}'''.format(user_name,user_city,user_school,user_message)
-			email = EmailMessage('New message:',
-				mail_body,
-				user_email,
-				['xxjkzs@foxmail.com'])
-			email.send()
-		else:
-			message = 'Please check your input.'
-	else:
-		form = forms.ContactForm
-	template = get_template('contact.html')
-	request_context = RequestContext(request)
-	request_context.push(locals())
-	html = template.render(request_context)
-	return HttpResponse(html)
-
-
-def post2db(request):
-	if request.method == 'POST':
-		post_form = forms.PostForm(request.POST)
-		if post_form.is_valid():
-			message = "Your message saved."
-			post_form.save()
-			return HttpResponseRedirect('/list/')
-		else:
-			message = "All fields must be filled in."
-	else:
-		post_form = forms.PostForm()
-		message = "All fields must be filled in."
-	template = get_template('post2db.html')
 	request_context = RequestContext(request)
 	request_context.push(locals())
 	html = template.render(request_context)
