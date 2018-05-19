@@ -13,10 +13,20 @@
 				</div>
 			</div>
 		</div>
-		<p>
-			Your  Name: {{username}} <br>
-			Email Addr: {{email}} <br>
-			Full Name: {{firstname}},{{lastname}}
-		</p>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-primary">
+					<div class="panel panel-heading" align="center">
+						 {{ profile.user.username | upper }} 	
+					</div>
+					<div class="panel panel-body">
+						Email : {{ profile.user.email }} <br>
+						Height:{{ profile.height }}cm<br>
+						Gender:{{ profile.male|yesno:"M,F" }}<br>
+						Site:{{ profile.website }}
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 {% endblock content %}

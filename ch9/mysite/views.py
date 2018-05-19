@@ -5,6 +5,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.core.mail import EmailMessage
 from django.contrib import messages , auth
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from mysite import models,forms
 # Create your views here.
@@ -58,11 +59,9 @@ def logout(request):
 def profile(request):
 	if request.user.is_authenticated():
 		username = request.user.username
-		email = request.user.email
-		firstname = request.user.first_name
-		lastname = request.user.last_name
 	try:
-		profile = User.objects.get(username='username')
+		user = User.objects.get(username=username)
+		profile = models.Profile.objects.get(user=user)
 	except:
 		pass
 	template = get_template('profile.html')
