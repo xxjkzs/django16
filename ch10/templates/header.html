@@ -1,0 +1,27 @@
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<div class="navbar-brand" align="center">
+				{% if username %}
+					My Diary ({{username}})
+				{% else %}
+					My Diary
+				{% endif %}
+				
+			</div>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="active"> <a href="/">Home</a></li>
+			{% if username %}
+			<li><a href="/profile">Profile</a></li>
+			<li><a href="/write">Write</a></li>
+			<li><a href="/logout">Logout</a></li>
+			{% else %}
+			<li><a href="/login">Login</a></li>
+			<li><a href="/accounts/register">Register</a></li>
+			{% endif %}
+			<li><a href="/admin">Admin</a></li>
+		</ul>
+	</div>
+	
+</nav>

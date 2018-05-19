@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}
+	My Diary
+{% endblock title %}
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel panel-heading" align="center">
+						<h3>My Profile</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-primary">
+					<div class="panel panel-heading" align="center">
+						 {{ profile.user.username | upper }} 	
+					</div>
+					<div class="panel panel-body">
+						Email : {{ profile.user.email }} <br>
+						Height:{{ profile.height }}cm<br>
+						Gender:{{ profile.male|yesno:"M,F" }}<br>
+						Site:{{ profile.website }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

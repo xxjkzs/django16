@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %} My Diary{% endblock title %}
+{% block content %}
+	<div class="container">
+		{% for message in messages %}
+			<div class="alert alert-{{ message.tags }}"> {{ message }} </div>
+		{% endfor %}
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel panel-heading"> <h3>{{username | default:"My"}} Personal Diary</h3> </div>
+				</div>
+			</div>
+		</div>
+		{% if username %}
+			Welcome: {{username}}
+		{% endif %}
+		{% for diary in diaries %}
+			{% cycle "<div class='row'>" "" "" %}
+				<div class="col-md-4">
+					<div class="panel panel-primary">
+						<div class="panel-heading" align="center">
+							{{diary.ddate}}
+						</div>
+						<div class="panel-body">
+							{{diary.note|linebreaks}}
+						</div>
+						<div class="panel-footer">
+							Expenses:${{diary.budget}},Weight:{{diray.weight}}kg
+						</div>
+					</div>
+				</div>
+			{% cycle "" "" "</div>" %}
+			{% empty %}
+				<h3><em>Please login before write anything.</em></h3>
+		{% endfor %}
+	</div>
+{% endblock content %}

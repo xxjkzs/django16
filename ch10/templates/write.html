@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}
+	I wanna say:
+{% endblock title %}
+{% block content %}
+	<div class="container">
+		{% for message in messages %}
+			<div class="alert alert-{{message.tags}}">{{message}}</div>
+		{% endfor %}
+
+		<form name="myform" action="." method="POST">
+			{% csrf_token %}
+			<table>
+				{{post_form.as_table}}
+			</table>
+			<input type="submit" value="Post">
+			<input type="reset" value="Reset">
+		</form>
+	</div>
+{% endblock content %}
