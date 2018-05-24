@@ -108,7 +108,7 @@ STATICFILES_DIRS = [
 
 EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
 # Fill with your own info
-MAILGUN_SERVER_NAME = ''
-MAILGUN_ACCESS_KEY = ''
+MAILGUN_SERVER_NAME = 'sandbox39e39d60e49e4517b5c341eb0242d75d.mailgun.org'
+MAILGUN_ACCESS_KEY = 'key-b061e3d85c746d4ed6ed75de38a3b850'
 
 ACCOUNT_ACTIVATION_DAYS = 7
