@@ -2,26 +2,20 @@
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<div class="navbar-brand" align="center">
-				{% if username %}
-					My Diary ({{username}})
-				{% else %}
-					My Diary
-				{% endif %}
-				
+                投票趣
 			</div>
 		</div>
+		{% load account %}
 		<ul class="nav navbar-nav">
 			<li class="active"> <a href="/">Home</a></li>
-			{% if username %}
-			<li><a href="/profile">Profile</a></li>
-			<li><a href="/write">Write</a></li>
-			<li><a href="/logout">Logout</a></li>
+			{% if user.is_authenticated %}
+			<li><a href="{% url 'account_email' %}">Change Email</a></li>
+			<li><a href="{% url 'account_logout' %}">Logout</a></li>
 			{% else %}
-			<li><a href="/login">Login</a></li>
-			<li><a href="/accounts/register">Register</a></li>
+			<li><a href="{% url 'account_login' %}">Login</a></li>
+			<li><a href="{% url 'account_signup' %}">Register</a></li>
 			{% endif %}
 			<li><a href="/admin">Admin</a></li>
 		</ul>
 	</div>
-	
 </nav>

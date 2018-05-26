@@ -39,6 +39,11 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'mysite',
     'captcha',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -105,10 +110,19 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static'),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
 # Fill with your own info
-MAILGUN_SERVER_NAME = 'sandbox39e39d60e49e4517b5c341eb0242d75d.mailgun.org'
-MAILGUN_ACCESS_KEY = 'key-b061e3d85c746d4ed6ed75de38a3b850'
+MAILGUN_SERVER_NAME = ''
+MAILGUN_ACCESS_KEY = ''
 
 ACCOUNT_ACTIVATION_DAYS = 7
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
