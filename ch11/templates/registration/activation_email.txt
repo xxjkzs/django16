@@ -1,0 +1,4 @@
+Thanks for your support!
+Username:{{user}}
+Registered at {{site}}
+Your activation link http://{{site}}/accounts/activate/{{activation_key}} will expire in {{expiration_days}} days.
