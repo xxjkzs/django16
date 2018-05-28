@@ -9,6 +9,8 @@
 		<ul class="nav navbar-nav">
 			<li class="active"> <a href="/">Home</a></li>
 			{% if user.is_authenticated %}
+			<li><a href="/addpoll">New(Edit) Poll</a></li>
+			<li><a href="{% url 'account_reset_password' %}">Reset Password</a></li>
 			<li><a href="{% url 'account_email' %}">Change Email</a></li>
 			<li><a href="{% url 'account_logout' %}">Logout</a></li>
 			{% else %}
