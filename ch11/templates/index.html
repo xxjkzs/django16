@@ -8,7 +8,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
-					<div class="panel panel-heading">
+					<div class="panel panel-heading" align="center">
 					     <h3>Welcom to Poll Pool</h3>
                          {% load account %}
 					     {% if user.is_authenticated %}
@@ -44,5 +44,19 @@
 			{% endfor %}
 			<div class="list-group"></div>
         </div>
+        <div class="row">
+			<button class="btn btn-info">You are on page {{polls.number}}</button>
+			{% if polls.has_previous %}
+				<button class="btn btn-info">
+					<a href="?p{{polls.previous_page_number}}">Previous</a>
+				</button>	
+			{% endif %}
+			{% if polls.has_next %}
+				<button class="btn btn-info">
+					<a href="?p{{polls.next_page_number}}">Next</a>
+				</button>
+				
+			{% endif %}
+		</div>
 	</div>
 {% endblock content %}

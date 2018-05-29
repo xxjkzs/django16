@@ -5,11 +5,21 @@ from django.shortcuts import redirect
 # from django.core.mail import EmailMessage
 from django.contrib.auth.decorators import login_required
 # from allauth.account.decorators import verified_email_required
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from mysite import models
 
 # Create your views here.
 def index(request):
-    polls = models.Poll.objects.all()
+    # polls = models.Poll.objects.all()
+    all_polls = models.Poll.objects.all().order_by('-created_at')
+    paginator = Paginator(all_polls,5)
+    p = request.GET.get('p')
+    try:
+        polls = paginator.page(p)
+    except PageNotAnInteger:
+        polls = paginator.page(1)
+    except EmptyPage:
+        polls = paginator.page(paginator,num_pages)
 
     template = get_template('index.html')
     request_context = RequestContext(request)
