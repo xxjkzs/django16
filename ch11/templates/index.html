@@ -32,7 +32,14 @@
                     <div class="list-group">
                 {% endif %}
                     <!--{% if user.is_authenticated %}-->
-                        <a href="{% url "poll-url" poll.id %}" class="list-group-item" > {{ poll.name }} </a>
+                        <a href="{% url "poll-url" poll.id %}" class="list-group-item" > 
+                        	<span class="glyphicon glyphicon-check" ></span>
+                        	{% load mvote_extras %}
+                        	Total Votes:{{ poll.id|show_votes }},
+                        	Total Items:{{ poll.id|show_items }}:
+                        	{{ poll.name }},added by [{{ poll.user }}],
+                        	created at {{ poll.created_at }}
+                         </a>
                     <!--{% else %}-->
                         <!--<a href='#' class="list-group-item" title="Login before any vote.">{{poll.name}}</a>-->
                     <!--{% endif %}-->
