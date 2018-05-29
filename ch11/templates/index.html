@@ -11,7 +11,14 @@
 					<div class="panel panel-heading">
 					     <h3>Welcom to Poll Pool</h3>
                          {% load account %}
-					     {% if not user.is_authenticated %}
+					     {% if user.is_authenticated %}
+					     	{% if  user.socialaccount_set.all.0.extra_data.login %}
+					     		{{ user.socialaccount_set.all.0.extra_data.login }}<br>
+					     		<img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="avatar" width="100">
+					     	{% else %}
+					     		Welcome: {{ user.username }}
+					     	{% endif %}
+					     {% else %}
 					        <p>You can login with your Github account.</p>
 					     {% endif %}
 					</div>
