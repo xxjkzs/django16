@@ -28,4 +28,9 @@ urlpatterns = [
     url(r'^vote/(\d+)/(\d+)$',views.vote,name='vote-url'),
     url(r'^accounts/',include('allauth.urls')),
     url(r'^govote/$',views.govote),
+    url(r'^addpoll/$',views.addpoll,name='addpoll-url'),
+    url(r'^addpollitem/$', views.addpollitem),
+    url(r'^addpollitem/(\d+)$', views.addpollitem, name='addpollitem-url'),
+    url(r'^delpoll/(\d+)$', views.delpoll, name='delpoll-url'),
+    url(r'^delpollitem/(\d+)/(\d+)$', views.delpollitem, name='delpollitem-url'),
 ]

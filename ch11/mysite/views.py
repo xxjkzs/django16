@@ -5,8 +5,10 @@ from django.shortcuts import redirect
 # from django.core.mail import EmailMessage
 from django.contrib.auth.decorators import login_required
 # from allauth.account.decorators import verified_email_required
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
-from mysite import models
+import datetime
+from mysite import models,forms
 
 # Create your views here.
 def index(request):
@@ -32,7 +34,7 @@ def index(request):
 # @verified_email_required
 def poll(request,pollid):
     try:
-        poll = models.Poll.objects.all()
+        poll = models.Poll.objects.get(id=pollid)
     except:
         poll = None
     if poll is not None:
@@ -89,3 +91,73 @@ def govote(request):
     else:
         votes = 0
     return HttpResponse(votes)
+
+@login_required
+def addpoll(request):
+    if request.method == 'POST':
+        username = request.user.username
+        user = User.objects.get(username=username)
+        new_poll = models.Poll(user=user) 
+        form = forms.PollForm(request.POST, instance=new_poll)
+        if form.is_valid():
+            form.save()
+            return redirect('/addpoll')
+    else:
+        form = forms.PollForm()
+
+    username = request.user.username
+    user = User.objects.get(username=username)
+    polls = models.Poll.objects.filter(user=user)    
+    template = get_template('addpoll.html')
+    request_context = RequestContext(request)
+    request_context.push(locals())
+    html = template.render(request_context)
+    return HttpResponse(html)
+
+
+@login_required
+def addpollitem(request, pollid=''):
+    if request.method == 'POST':
+        pollid = request.POST['pollid']
+        poll = models.Poll.objects.get(id=pollid)
+        new_pollitem = models.PollItem(poll=poll) 
+        form = forms.PollItemForm(request.POST, instance=new_pollitem)
+        if form.is_valid():
+
+            form.save()
+            return redirect('/addpollitem/'+pollid)
+    else:
+        form = forms.PollItemForm()
+
+    poll = models.Poll.objects.get(id=pollid)
+    pollitems = models.PollItem.objects.filter(poll=poll)    
+    template = get_template('addpollitem.html')
+    request_context = RequestContext(request)
+    request_context.push(locals())
+    html = template.render(request_context)
+    return HttpResponse(html)
+
+@login_required
+def delpoll(request, pollid):
+    try: 
+        poll = models.Poll.objects.get(id = pollid)
+    except:
+        pass
+    if poll is not None:
+        poll.delete()
+    target_url = '/addpoll/'
+    return redirect(target_url)
+
+@login_required
+def delpollitem(request, pollid, pollitemid):
+    try: 
+        pollitem = models.PollItem.objects.get(id = pollitemid)
+    except:
+        pass
+    if pollitem is not None:
+        pollitem.delete()
+    target_url = '/addpollitem/' + pollid
+    return redirect(target_url)
+
+
+
