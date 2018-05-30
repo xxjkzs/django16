@@ -48,6 +48,14 @@ def poll(request,pollid):
 @login_required
 # @verified_email_required
 def vote(request,pollid,pollitemid):
+    target_url = '/poll/' + pollid
+    if models.VoteCheck.objects.filter(userid=request.user.id,pollid=pollid,
+        vote_date=datetime.date.today()):
+        return redirect(target_url)
+    else:
+        vote_rec = models.VoteCheck(userid=request.user.id,pollid=pollid,
+            vote_date=datetime.date.today())
+        vote_rec.save()
     try:
         pollitem = models.PollItem.objects.get(id=pollitemid)
     except:
@@ -56,5 +64,28 @@ def vote(request,pollid,pollitemid):
         pollitem.vote += 1
         pollitem.save()
 
-    target_url = '/poll/' + pollid
     return redirect(target_url)
+
+@login_required
+def govote(request):
+    if request.method == "GET" and request.is_ajax():
+        pollitemid = request.GET.get('pollitemid')
+        pollid = request.GET.get('pollid')
+        bypass = False
+        if models.VoteCheck.objects.filter(userid=request.user.id,pollid=pollid,
+            vote_date=datetime.date.today()):
+            bypass = True
+        else:
+            vote_rec = models.VoteCheck.objects.filter(userid=request.user.id,pollid=pollid,
+                vote_date=datetime.date.today())
+            vote_rec.save()
+        try:
+            pollitemid = models.PollItem.objects.get(id=pollitemid)
+            pollitem.vote += 1
+            pollitem.save()
+            votes = pollitem.vote
+        except:
+            votes = 0
+    else:
+        votes = 0
+    return HttpResponse(votes)

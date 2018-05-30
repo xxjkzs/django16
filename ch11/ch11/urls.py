@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^poll/(\d+)$',views.poll,name='poll-url'),
     url(r'^vote/(\d+)/(\d+)$',views.vote,name='vote-url'),
     url(r'^accounts/',include('allauth.urls')),
+    url(r'^govote/$',views.govote),
 ]

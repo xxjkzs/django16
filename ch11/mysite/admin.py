@@ -15,3 +15,4 @@ class PollItemAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Poll,PollAdmin)
 admin.site.register(models.PollItem,PollItemAdmin)
+admin.site.register(models.VoteCheck)
