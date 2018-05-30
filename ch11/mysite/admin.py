@@ -10,7 +10,7 @@ class PollAdmin(admin.ModelAdmin):
 
 class PollItemAdmin(admin.ModelAdmin):
     list_display = ('poll','name','vote','image_url')
-    odering = ('poll',)
+    ordering = ('poll',)
 
 
 admin.site.register(models.Poll,PollAdmin)
