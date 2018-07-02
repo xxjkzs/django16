@@ -27,40 +27,40 @@
 		</div>
         <div class="row">
             <!--{% load account %}-->
-            {% for poll in polls %}
-                {% if forloop.first %}
-                    <div class="list-group">
-                {% endif %}
-                    <!--{% if user.is_authenticated %}-->
-                        <a href="{% url "poll-url" poll.id %}" class="list-group-item" >
-                        	<span class="glyphicon glyphicon-check" ></span>
-                        	{% load mvote_extras %}
-                        	Total Votes:{{ poll.id|show_votes }},
-                        	Total Items:{{ poll.id|show_items }}:
-                        	{{ poll.name }},added by [{{ poll.user }}],
-                        	created at {{ poll.created_at }}
-                         </a>
-                    <!--{% else %}-->
-                        <!--<a href='#' class="list-group-item" title="Login before any vote.">{{poll.name}}</a>-->
-                    <!--{% endif %}-->
-                {% if forloop.last %}
-                    </div>
-                {% endif %}
-            {% empty %}
-			<center><h3>No active polls available.</h3></center>
+            {% for product in products %}
+            	{% cycle '<div class="row">' '' '' '' %}
+            		<div class="col-xs-3 col-sm-3 col-md-3">
+            			<div class="thumbnail">
+            				<img src="{{product.image}}">
+            				<div class="cpation">
+            					<h4>{{product.name}}</h4>
+            					<p>${{product.price}}</p>
+            					<p>Stock:{{product.stock}}</p>
+            					<p>{{product.description}}</p>
+            					<button class="btn btn-primary">Add to cart</button>
+            				</div>
+            			</div>
+            		</div>
+            	{% cycle '' '' '' '</div>' %}
+            		{% empty %}
+            		<div class="row">
+            			<div class="col-sm-12" align="center">
+            				<h3>No product in this category.</h3>
+            			</div>
+            		</div>
 			{% endfor %}
 			<div class="list-group"></div>
         </div>
         <div class="row">
-			<button class="btn btn-info">You are on page {{polls.number}}</button>
-			{% if polls.has_previous %}
+			<button class="btn btn-info">You are on page {{products.number}}</button>
+			{% if products.has_previous %}
 				<button class="btn btn-info">
-					<a href="?p{{polls.previous_page_number}}">Previous</a>
+					<a href="?p{{products.previous_page_number}}">Previous</a>
 				</button>
 			{% endif %}
-			{% if polls.has_next %}
+			{% if products.has_next %}
 				<button class="btn btn-info">
-					<a href="?p{{polls.next_page_number}}">Next</a>
+					<a href="?p{{products.next_page_number}}">Next</a>
 				</button>
 
 			{% endif %}
