@@ -144,7 +144,7 @@ FILER_STORAGES = {
         'main':{
             'ENGINE':'filer.storage.PublicFileSystemStorage',
             'OPTIONS':{
-                'location':'/home/bm/django16/ch12/media/filer',
+                'location':'/home/zs/django16/ch12/media/filer',
                 'base_url':'/media/filer/'
             },
             'UPLOAD_TO':'filer.utils.generate_filename.randomized',
@@ -153,7 +153,7 @@ FILER_STORAGES = {
         'thumbnails':{
             'ENGINE':'filer.storage.PublicFileSystemStorage',
             'OPTIONS':{
-                'location':'/home/bm/django16/ch12/media/filer_thumbnails',
+                'location':'/home/zs/django16/ch12/media/filer_thumbnails',
                 'base_url':'/media/filer_thumbnails/',
             },
         },
@@ -162,7 +162,7 @@ FILER_STORAGES = {
         'main':{
             'ENGINE':'filer.storage.PrivateFileSystemStorage',
             'OPTIONS':{
-                'location':'/home/bm/django16/ch12/media/filer',
+                'location':'/home/zs/django16/ch12/media/filer',
                 'base_url':'/smedia/filer/'
             },
             'UPLOAD_TO':'filer.utils.generate_filename.randomized',
@@ -171,7 +171,7 @@ FILER_STORAGES = {
         'thumbnails':{
             'ENGINE':'filer.storage.PrivateFileSystemStorage',
             'OPTIONS':{
-                'location':'/home/bm/django16/ch12/media/filer_thumbnails',
+                'location':'/home/zs/django16/ch12/media/filer_thumbnails',
                 'base_url':'/smedia/filer_thumbnails/',
             },
         },
@@ -179,4 +179,4 @@ FILER_STORAGES = {
 }
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/bm/django16/ch12/media'
+MEDIA_ROOT = '/home/zs/django16/ch12/media'
