@@ -22,6 +22,7 @@ from mysite import views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index),
+    url(r'^(\d*)$', views.index),
     url(r'^accounts/',include('allauth.urls')),
     url(r'^filer/',include('filer.urls')),
 ]

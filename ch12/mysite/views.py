@@ -11,9 +11,22 @@ import datetime
 from mysite import models,forms
 
 # Create your views here.
-def index(request):
-    all_products = models.Product.objects.all()
-    paginator = Paginator(all_products,5)
+def index(request,cat_id=0):
+    all_categories = models.Category.objects.all()
+    all_products = None
+    if int(cat_id) > 0:
+        try:
+            category = models.Category.objects.get(id=cat_id)
+        except:
+            category = None
+
+        if category is not None:
+            all_products = models.Product.objects.filter(category=category)
+
+    if all_products is None:
+        all_products = models.Product.objects.all()
+
+    paginator = Paginator(all_products,4)
     p = request.GET.get('p')
     try:
         products = paginator.page(p)

@@ -10,6 +10,7 @@
 				<div class="panel panel-default">
 					<div class="panel panel-heading" align="center">
 					     <h3>Welcom to My Online Shop</h3>
+					     <h3>{{ category.name|default:"all products" }}</h3>
                          {% load account %}
 					     {% if user.is_authenticated %}
 					     	{% if  user.socialaccount_set.all.0.extra_data.login %}
@@ -31,8 +32,8 @@
             	{% cycle '<div class="row">' '' '' '' %}
             		<div class="col-xs-3 col-sm-3 col-md-3">
             			<div class="thumbnail">
-            				<img src="{{product.image.url}}">
-            				<div class="cpation">
+            				<img src="{{product.image.icons.64}}">
+            				<div class="caption">
             					<h4>{{product.name}}</h4>
             					<p>${{product.price}}</p>
             					<p>Stock:{{product.stock}}</p>
@@ -55,12 +56,12 @@
 			<button class="btn btn-info">You are on page {{products.number}}</button>
 			{% if products.has_previous %}
 				<button class="btn btn-info">
-					<a href="?p{{products.previous_page_number}}">Previous</a>
+					<a href="?p={{products.previous_page_number}}">Previous</a>
 				</button>
 			{% endif %}
 			{% if products.has_next %}
 				<button class="btn btn-info">
-					<a href="?p{{products.next_page_number}}">Next</a>
+					<a href="?p={{products.next_page_number}}">Next</a>
 				</button>
 
 			{% endif %}

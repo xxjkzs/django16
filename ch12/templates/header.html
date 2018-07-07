@@ -8,8 +8,18 @@
 		{% load account %}
 		<ul class="nav navbar-nav">
 			<li class="active"> <a href="/">Home</a></li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					Products<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					{% for cate in all_categories %}
+						<li><a href="/{{cate.id}}">{{cate.name}}</a></li>
+					{% endfor %}
+				</ul>
+			</li>
 			{% if user.is_authenticated %}
-			<li><a href="/addpoll">New(Edit) Poll</a></li>
+			<li><a href="/cart/"> Cart</a></li>
 			<li><a href="{% url 'account_reset_password' %}">Reset Password</a></li>
 			<li><a href="{% url 'account_email' %}">Change Email</a></li>
 			<li><a href="{% url 'account_logout' %}">Logout</a></li>
