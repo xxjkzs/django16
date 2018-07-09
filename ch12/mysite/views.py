@@ -40,3 +40,16 @@ def index(request,cat_id=0):
     request_context.push(locals())
     html = template.render(request_context)
     return HttpResponse(html)
+
+
+def product(request,product_id):
+    try:
+        product = models.Product.objects.get(id=product_id)
+    except:
+        product = None
+
+    template = get_template('product.html')
+    request_context = RequestContext(request)
+    request_context.push(locals())
+    html = template.render(request_context)
+    return HttpResponse(html)

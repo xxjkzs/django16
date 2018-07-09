@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^(\d*)$', views.index),
     url(r'^accounts/',include('allauth.urls')),
     url(r'^filer/',include('filer.urls')),
+    url(r'^product/(\d+)$',views.product,name='product-url')
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

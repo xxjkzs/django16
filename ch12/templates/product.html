@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Product Details{% endblock %}
+{% block content %}
+<div class='container'>
+{% for message in messages %}
+    <div class='alert alert-{{message.tags}}'>{{ message }}</div>
+{% endfor %}
+    <div class='row'>
+        <div class='col-md-12'>
+            <div class='panel panel-default'>
+                <div class='panel-heading' align=center>
+                    <h3>{{ product.name | default:"Product Not Found."}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='row'>
+        <div class="col-sm-offset-1 col-sm-6">
+            <img src="{{ product.image.url }}" width="100%">
+        </div>
+        <div class="col-sm-4">
+            <h2>{{ product.name }}</h2>
+            <h3>Price:{{ product.price }} <br>
+                Stock:{{ product.stock }}
+            </h3>
+            <p>{{ product.description | linebreaks }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

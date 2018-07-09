@@ -34,7 +34,7 @@
             			<div class="thumbnail">
             				<img src="{{product.image.icons.64}}">
             				<div class="caption">
-            					<h4>{{product.name}}</h4>
+            					<h4><a href="{% url 'product-url' product.id %}">{{product.name}}</a></h4>
             					<p>${{product.price}}</p>
             					<p>Stock:{{product.stock}}</p>
             					<p>{{product.description}}</p>
