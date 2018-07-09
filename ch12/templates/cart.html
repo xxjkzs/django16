@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %} Online Shop {% endblock title %}
+{% block content %}
+    <div class="container">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}"> {{ message }} </div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel panel-heading" align="center">
+                         <h3>Welcom to My Online Shop</h3>
+                         <h3>{{ category.name|default:"all products" }}</h3>
+                         {% load account %}
+                         {% if user.is_authenticated %}
+                            {% if  user.socialaccount_set.all.0.extra_data.login %}
+                                {{ user.socialaccount_set.all.0.extra_data.login }}<br>
+                                <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="avatar" width="100">
+                            {% else %}
+                                Welcome: {{ user.username }}
+                            {% endif %}
+                         {% else %}
+                            <p>You can login with your Github account.</p>
+                         {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-info">
+                    <div class="panel panel-heading">
+                        <h4>My Cart</h4>
+                    </div>
+                    <div class="panel panel-body">
+                        {% for item in cart %}
+                            {% if forloop.first %}
+                                <table border=1>
+                                    <tr>
+                                        <td width="300" align="center">Product Name</td>
+                                        <td width="100" align="center">Price</td>
+                                        <td width="100" align="center">Qty</td>
+                                        <td width="100" align="center">Total</td>
+                                        <td width="100" align="center">Remove</td>
+                                    </tr>
+                            {% endif %}
+                            <div class="list-roup">
+                                <div class="listgroup-item">
+                                    <tr>
+                                        <td>{{ item.product.name }}</td>
+                                        <td align="right">{{ item.product.price }}</td>
+                                        <td align="center">{{ item.quantity }}</td>
+                                        <td align="right">{{ item.total_price}}</td>
+                                        <td align="center"><a href="{% url "remove-url" item.product.id %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                    </tr>
+                                </div>
+                            </div>
+                            {% if forloop.last %}
+                                </table>
+                            {% endif %}
+                                {% empty %}
+                                <em>Your cart is empty.</em>
+                        {% endfor %}
+                    </div>
+                    <div class="panel panel-footer">
+                        Grand total: ${{ cart.summary}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

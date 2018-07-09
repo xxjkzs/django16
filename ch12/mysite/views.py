@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 # from allauth.account.decorators import verified_email_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from cart.cart import Cart
 import datetime
 from mysite import models,forms
 
@@ -49,6 +50,31 @@ def product(request,product_id):
         product = None
 
     template = get_template('product.html')
+    request_context = RequestContext(request)
+    request_context.push(locals())
+    html = template.render(request_context)
+    return HttpResponse(html)
+
+
+def add_to_cart(request,product_id,quantity):
+    product = models.Product.objects.get(id=product_id)
+    cart = Cart(request)
+    cart.add(product,product.price,quantity)
+    return redirect('/')
+
+
+def remove_from_cart(request,product_id):
+    product = models.Product.objects.get(id=product_id)
+    cart = Cart(request)
+    cart.remove(product)
+    return redirect('/cart/')
+
+
+@login_required
+def cart(request):
+    all_categories = models.Category.objects.all()
+    cart = Cart(request)
+    template = get_template('cart.html')
     request_context = RequestContext(request)
     request_context.push(locals())
     html = template.render(request_context)

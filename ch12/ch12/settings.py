@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'filer',
     'mptt',
+    'cart',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -180,3 +181,5 @@ FILER_STORAGES = {
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = '/home/bm/django16/ch12/media'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
