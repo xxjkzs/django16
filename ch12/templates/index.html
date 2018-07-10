@@ -36,9 +36,10 @@
             				<div class="caption">
             					<h4><a href="{% url 'product-url' product.id %}">{{product.name}}</a></h4>
             					<p>${{product.price}}</p>
-            					<p>Stock:{{product.stock}}</p>
             					<p>{{product.description}}</p>
-            					<button class="btn btn-primary">Add to cart</button>
+            					{% if user.is_authenticated %}
+            						<button class="btn btn-info" {{ product.stock | yesno:",disabled" }}><a href="{% url "additem-url" product.id 1 %}">Add to cart</a></button>
+            					{% endif %} 
             				</div>
             			</div>
             		</div>
