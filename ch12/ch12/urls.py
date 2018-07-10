@@ -23,11 +23,11 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index),
     url(r'^(\d*)$', views.index),
-    url(r'^accounts/',include('allauth.urls')),
-    url(r'^filer/',include('filer.urls')),
-    url(r'^product/(\d+)$',views.product,name='product-url'),
+    url(r'^accounts/', include('allauth.urls')),
+    url(r'^filer/', include('filer.urls')),
+    url(r'^product/(\d+)$', views.product,name='product-url'),
     url(r'^cart/$',views.cart),
-    url(r'^additem/(\d+)/(\d+)/$',views.add_to_cart,name='additem-url'),
-    url(r'removeitem/(\d+)/$',views.remove_from_cart,name='removeitem-url'),
+    url(r'^additem/(\d+)/(\d+)/$', views.add_to_cart, name='additem-url'),
+    url(r'removeitem/(\d+)/$', views.remove_from_cart, name='removeitem-url'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

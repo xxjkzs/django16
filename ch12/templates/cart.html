@@ -51,7 +51,7 @@
                                         <td align="right">{{ item.product.price }}</td>
                                         <td align="center">{{ item.quantity }}</td>
                                         <td align="right">{{ item.total_price}}</td>
-                                        <td align="center"><a href="{% url "remove-url" item.product.id %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                        <td align="center"><a href="{% url 'removeitem-url' item.product.id %}"><span class="glyphicon glyphicon-trash"></span></a></td>
                                     </tr>
                                 </div>
                             </div>

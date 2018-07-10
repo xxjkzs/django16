@@ -14,6 +14,7 @@ from mysite import models,forms
 # Create your views here.
 def index(request,cat_id=0):
     all_categories = models.Category.objects.all()
+    cart = Cart(request)
     all_products = None
     if int(cat_id) > 0:
         try:
@@ -56,6 +57,7 @@ def product(request,product_id):
     return HttpResponse(html)
 
 
+# @login_required
 def add_to_cart(request,product_id,quantity):
     product = models.Product.objects.get(id=product_id)
     cart = Cart(request)
@@ -63,6 +65,7 @@ def add_to_cart(request,product_id,quantity):
     return redirect('/')
 
 
+# @login_required
 def remove_from_cart(request,product_id):
     product = models.Product.objects.get(id=product_id)
     cart = Cart(request)
