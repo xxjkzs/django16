@@ -29,5 +29,7 @@ urlpatterns = [
     url(r'^cart/$',views.cart),
     url(r'^additem/(\d+)/(\d+)/$', views.add_to_cart, name='additem-url'),
     url(r'removeitem/(\d+)/$', views.remove_from_cart, name='removeitem-url'),
+    url(r'order/$', views.order),
+    url(r'myorders/$', views.my_orders),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

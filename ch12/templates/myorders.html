@@ -30,28 +30,28 @@
             <div class="col-sm-12">
                 <div class="panel panel-info">
                     <div class="panel panel-heading">
-                        <h4>My Cart</h4>
+                        <h4>My Orders</h4>
                     </div>
                     <div class="panel panel-body">
-                        {% for item in cart %}
+                        {% for order in orders %}
                             {% if forloop.first %}
                                 <table border=1>
                                     <tr>
-                                        <td width="300" align="center">Product Name</td>
-                                        <td width="100" align="center">Price</td>
-                                        <td width="100" align="center">Qty</td>
-                                        <td width="100" align="center">Total</td>
-                                        <td width="100" align="center">Remove</td>
+                                        <td width="100" align="center">Order ID</td>
+                                        <td width="100" align="center">Name</td>
+                                        <td width="300" align="center">Address</td>
+                                        <td width="200" align="center">Order Date</td>
+                                        <td width="100" align="center">Purchased</td>
                                     </tr>
                             {% endif %}
                             <div class="list-roup">
                                 <div class="listgroup-item">
                                     <tr>
-                                        <td>{{ item.product.name }}</td>
-                                        <td align="right">{{ item.product.price }}</td>
-                                        <td align="center">{{ item.quantity }}</td>
-                                        <td align="right">{{ item.total_price}}</td>
-                                        <td align="center"><a href="{% url 'removeitem-url' item.product.id %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                        <td>{{ order.id }}</td>
+                                        <td align="right">{{ order.full_name }}</td>
+                                        <td align="center">{{ order.address }}</td>
+                                        <td align="right">{{ order.created_at}}</td>
+                                        <td align="center">{{ order.paid | yesno:"Yes,No" }}</td>
                                     </tr>
                                 </div>
                             </div>
@@ -59,13 +59,11 @@
                                 </table>
                             {% endif %}
                                 {% empty %}
-                                <em>Your cart is empty.</em>
+                                <em>No processing order.</em>
                         {% endfor %}
                     </div>
                     <div class="panel panel-footer">
-                        Grand total: ${{ cart.summary}}
                     </div> 
-                    <button class="btn btn-warning"><a href="/order">Put this order</a></button>
                 </div>
             </div>
         </div>

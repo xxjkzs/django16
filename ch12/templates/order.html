@@ -30,7 +30,7 @@
             <div class="col-sm-12">
                 <div class="panel panel-info">
                     <div class="panel panel-heading">
-                        <h4>My Cart</h4>
+                        <h4>New Order</h4>
                     </div>
                     <div class="panel panel-body">
                         {% for item in cart %}
@@ -57,6 +57,8 @@
                             </div>
                             {% if forloop.last %}
                                 </table>
+                                <button class="btn btn-warning"><a href="/cart">Back to Cart</a></button>
+                                <button class="btn btn-warning"><a href="/">Back to Home</a></button>
                             {% endif %}
                                 {% empty %}
                                 <em>Your cart is empty.</em>
@@ -65,7 +67,13 @@
                     <div class="panel panel-footer">
                         Grand total: ${{ cart.summary}}
                     </div> 
-                    <button class="btn btn-warning"><a href="/order">Put this order</a></button>
+                    <form action="." method="POST">
+                        {% csrf_token %}
+                        <table>
+	                        {{ form.as_table }}
+                        </table>
+                        <input type="submit" value="Checkout">
+                    </form>
                 </div>
             </div>
         </div>
