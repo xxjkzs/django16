@@ -28,8 +28,12 @@ urlpatterns = [
     url(r'^product/(\d+)$', views.product,name='product-url'),
     url(r'^cart/$',views.cart),
     url(r'^additem/(\d+)/(\d+)/$', views.add_to_cart, name='additem-url'),
-    url(r'removeitem/(\d+)/$', views.remove_from_cart, name='removeitem-url'),
-    url(r'order/$', views.order),
-    url(r'myorders/$', views.my_orders),
+    url(r'^removeitem/(\d+)/$', views.remove_from_cart, name='removeitem-url'),
+    url(r'^order/$', views.order),
+    url(r'^myorders/$', views.my_orders),
+    url(r'^payment/(\d+)/$',views.payment),
+    url(r'^done/$',views.payment_done),
+    url(r'^cancelled/$',views.payment_cancelled),
+    url(r'^paypal/$', include('paypal.standard.ipn.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

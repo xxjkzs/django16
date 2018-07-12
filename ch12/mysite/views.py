@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.views.decorators.csrf import csrf_exempt
 from cart.cart import Cart
 import datetime
 from mysite import models,forms
@@ -136,3 +137,31 @@ def my_orders(request):
     request_context.push(locals())
     html = template.render(request_context)
     return HttpResponse(html)
+
+
+@csrf_exempt
+def payment_done(request):
+    template = get_template('payment_done.html')
+    request_context = RequestContext(request)
+    request_context.push(locals())
+    html = template.render(request_context)
+    return HttpResponse(html) 
+
+
+@csrf_exempt
+def payment_cancelled(request):
+    template = get_template('payment_cancelled.html')
+    request_context = RequestContext(request)
+    request_context.push(locals())
+    html = template.render(request_context)
+    return HttpResponse(html) 
+
+
+@login_required
+def payment(request,order_id):
+    pass
+    # template = get_template('payment.html')
+    # request_context = RequestContext(request)
+    # request_context.push(locals())
+    # html = template.render(request_context)
+    # return HttpResponse(html) 

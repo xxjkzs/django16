@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'filer',
     'mptt',
     'cart',
+    'paypal.standard.ipn',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -183,3 +184,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = '/home/zs/django16/ch12/media'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+PAYPAL_TEST = True
+PAYPAL_RECEIVER_EMAIL = ''

@@ -42,6 +42,7 @@
                                         <td width="300" align="center">Address</td>
                                         <td width="200" align="center">Order Date</td>
                                         <td width="100" align="center">Purchased</td>
+                                        <td width="100" align="center">Pay</td>
                                     </tr>
                             {% endif %}
                             <div class="list-roup">
@@ -52,6 +53,11 @@
                                         <td align="center">{{ order.address }}</td>
                                         <td align="right">{{ order.created_at}}</td>
                                         <td align="center">{{ order.paid | yesno:"Yes,No" }}</td>
+                                        <td align="center">
+                                            {% if not order.paid %}
+                                                <button class="btn btn-warning"><a href="/payment/{{ order.id }}/">Pay</a></button>
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                 </div>
                             </div>
