@@ -7,10 +7,13 @@ from django.contrib.auth.decorators import login_required
 from allauth.account.decorators import verified_email_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.conf import settings
 from django.core.mail import send_mail
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 from cart.cart import Cart
+from paypal.standard.forms import PayPalPaymentsForm
 import datetime
 from mysite import models,forms
 
@@ -159,9 +162,38 @@ def payment_cancelled(request):
 
 @login_required
 def payment(request,order_id):
-    pass
-    # template = get_template('payment.html')
-    # request_context = RequestContext(request)
-    # request_context.push(locals())
-    # html = template.render(request_context)
-    # return HttpResponse(html) 
+    all_categories = models.Category.objects.all()
+    try:
+        order = models.Order.objects.get(id=order_id)
+    except:
+        messages.add_message(request,messages.WARNING,"Wrong order ID , fail to process.")
+        return redirect('/myorders/')
+    all_order_items = models.OrderItem.objects.filter(order=order)
+    items = list()
+    total = 0
+    for order_item in all_order_items:
+        t = dict()
+        t['name'] = order_item.product.name
+        t['price'] = order_item.product.price
+        t['quantity'] = order_item.quantity
+        t['subtotal'] = order_item.price * order_item.quantity
+        total += order_item.product.price
+        items.append(t)
+
+        host = request.get_host()
+        paypal_dict = {
+            'business' : settings.PAYPAL_RECEIVER_EMAIL,
+            'amount' : total,
+            'item_name' : 'item id : {} '.format(order_id),
+            'invoice' : 'invoice-{}'.format(order_id),
+            'currency_code' : 'CNY',
+            'notify_url' : 'http://{}{}'.format(host,reverse('paypal-ipn')),
+            'return_url' : 'http://{}'.format(host),
+            'cancel_return' : 'http://{}/cancelled'.format(host),
+        }
+    paypal_form = PayPalPaymentsForm(initial=paypal_dict)  
+    template = get_template('payment.html')
+    request_context = RequestContext(request)
+    request_context.push(locals())
+    html = template.render(request_context)
+    return HttpResponse(html) 
