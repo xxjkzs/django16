@@ -191,6 +191,7 @@ def payment(request,order_id):
             'return_url' : 'http://{}'.format(host),
             'cancel_return' : 'http://{}/cancelled'.format(host),
         }
+
     paypal_form = PayPalPaymentsForm(initial=paypal_dict)  
     template = get_template('payment.html')
     request_context = RequestContext(request)

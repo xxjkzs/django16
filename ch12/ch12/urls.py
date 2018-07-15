@@ -34,6 +34,6 @@ urlpatterns = [
     url(r'^payment/(\d+)/$',views.payment),
     url(r'^done/$',views.payment_done),
     url(r'^cancelled/$',views.payment_cancelled),
-    url(r'^paypal/$', include('paypal.standard.ipn.urls')),
+    url(r'^paypal/', include('paypal.standard.ipn.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
