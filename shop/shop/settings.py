@@ -169,6 +169,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'media'),
 ]
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/var/www/shop/media'
-STATIC_ROOT = '/var/www/shop/staticfiles'
+# MEDIA_ROOT = '/var/www/shop/media'
+# STATIC_ROOT = '/var/www/shop/staticfiles'
 
+MEDIA_ROOT = '/home/zs/django16/shop/media'
+STATIC_ROOT = '/home/zs/django16/staticfiles'
