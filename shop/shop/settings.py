@@ -173,4 +173,4 @@ MEDIA_URL = '/media/'
 # STATIC_ROOT = '/var/www/shop/staticfiles'
 
 MEDIA_ROOT = '/home/zs/django16/shop/media'
-STATIC_ROOT = '/home/zs/django16/staticfiles'
+STATIC_ROOT = '/home/zs/django16/shop/staticfiles'
