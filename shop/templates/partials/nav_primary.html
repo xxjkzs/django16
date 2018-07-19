@@ -35,8 +35,8 @@
         <div class="navbar-collapse primary-collapse collapse">
             {% block nav_dropdown %}
                 <ul id="browse" class="nav navbar-nav">
-                    <li class="dropdown active {% if expand_dropdown %}open{% endif %}">
-                        <a href="#" class="dropdown-toggle" {% if not expand_dropdown %} data-toggle="dropdown"{% endif %}>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" {% if expand_dropdown %} data-toggle="dropdown"{% endif %}>
                             {% trans "Browse store" %}
                             <b class="caret"></b>
                         </a>
