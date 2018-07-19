@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}  Register a FREE secondary domain name. {% endblock title %}
+{% block content %}
+	<div class="container">
+		{% for message in messages %}
+			<div class="alert alert-{{ message.tags }}"> {{ message }} </div>
+		{% endfor %}
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel panel-heading">
+					     <h3>Register a secondary domain name.</h3>
+					     {% if user.is_authenticated %}
+					     	Welcome {{ user.username }}
+					     {% endif %}
+					</div>
+				</div>
+            </div>
+		</div>
+	</div>
+{% endblock content %}
