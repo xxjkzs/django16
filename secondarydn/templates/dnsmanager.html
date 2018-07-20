@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}  Manage your domain name. {% endblock title %}
+{% block content %}
+	<div class="container">
+		{% for message in messages %}
+			<div class="alert alert-{{ message.tags }}"> {{ message }} </div>
+		{% endfor %}
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel panel-heading">
+					     <h3>Manage your domain name.</h3>
+					     {% if user.is_authenticated %}
+					     	Welcome {{ user.username }}
+					     {% endif %}
+					</div>
+					<div class="panel panel-body">
+						{% for subdomain in subdomains %}
+							{% if forloop.first %}
+								<table border="1">
+									<tr>
+										<td width="100">Site ID</td>
+										<td width="200">Created Time</td>
+										<td width="100">Manage</td>
+									</tr>
+									{% endif %}
+									<tr>
+										<td>{{subdomain.name}}</td>
+										<td>{{subdomain.created_at}}</td>
+										<td><a href="/delsubdomain/{{subdomain.name}}">Delete</a></td>
+									</tr>
+							{% if forloop.last %}
+								</table>
+							{% endif %}
+								
+							{% empty %}
+								<h3>You have got no subdomain yet.</h3>	
+								<table>
+									<form action="." method="POST">
+										{% csrf_token %}
+										{{form.as_table}}
+										<tr>
+											<td colspan="2">
+												<input type="submit" value="Submit">
+											</td>
+										</tr>
+									</form>
+								</table>
+						{% endfor %}
+					</div>
+				</div>
+            </div>
+		</div>
+	</div>
+{% endblock content %}

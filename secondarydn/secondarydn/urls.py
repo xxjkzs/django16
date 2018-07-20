@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^$',views.index),
     url(r'^accounts/',include('registration.backends.hmac.urls')),
     url(r'accounts/profile/$',views.index),
+    url(r'dnsmanager/$',views.dnsmanager),
+    url(r'delsubdomain/(\w+)/$',views.del_subdomain),
 ]
