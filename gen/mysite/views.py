@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib import auth
 from django.http import HttpResponse
-import random
+import os,random
 from PIL import Image, ImageDraw, ImageFont
 from uuid_upload_path import uuid
 from mysite import models,forms
@@ -36,7 +36,7 @@ def gen(request):
 			saved_filename = merge_pic(request.POST.get('msg'),
 				int(request.POST.get('font_size')),
 				int(request.POST.get('x')),
-				int(request.POST.get('y')),
+				int(request.POST.get('y'))
 				)
 	else:
 		form = forms.GenForm()
