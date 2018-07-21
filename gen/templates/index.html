@@ -1,35 +1,33 @@
 {% extends "base.html" %}
-{% block title %}  Register a FREE secondary domain name. {% endblock title %}
+{% block title %}  Generate a customized picture. {% endblock title %}
 {% block content %}
 	<div class="container">
 		{% for message in messages %}
 			<div class="alert alert-{{ message.tags }}"> {{ message }} </div>
 		{% endfor %}
+		{% load static %}
+		{% static "" as base_url %}
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel panel-heading">
-					     <h3>Register a secondary domain name.</h3>
-					     {% if user.is_authenticated %}
-					     	Welcome {{ user.username }}
-					     {% endif %}
+					     <h3>Picture regenerater.</h3>
 					</div>
 					<div class="panel panel-body">
-						<h4>Features</h4>
-						<ul>
-							<li>Absolutely FREE.</li>
-							<li>Every account can get a secondary domain name.</li>
-							<li>Use DNSimple, fast response.</li>
-							<li>Compactable with the tutorial.</li>
-						</ul>
-						<br>
-						<h4>Terms of Use</h4>
-						<ol>
-							<li>Lifetime free.</li>
-							<li>The admin can terminate the site at any time.</li>
-							<li>Do NOT use this site for illegal purpose.</li>
-							<li>This site shall NOT take any responsibility if there is any loss caused by the site's security issue.</li>
-						</ol>
+						{% for pic in pics %}
+							{% cycle "<div class='row'>" "" "" %}
+								<div class="col col-sm-4">
+									<div class="panel panel-default">
+										<div class="panel panel-heading">
+											{{pic}}
+										</div>
+										<div class="panel panel-body">
+											<img src="{{base_url}}/quotepics/{{pic}}.jpg" width="100%">
+										</div>
+									</div>
+								</div>
+							{% cycle "" "" "</div>" %}
+						{% endfor %}
 					</div>
 				</div>
             </div>

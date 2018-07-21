@@ -2,19 +2,12 @@
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<div class="navbar-brand" align="center">
-               PIC_GEN
+               PICS GEN
 			</div>
 		</div>
 		<ul class="nav navbar-nav">
 			<li class="active"> <a href="/">Home</a></li>
-			{% if user.is_authenticated %}
-			<li><a href="/dnsmanager">Manage DNS</a></li>
-			<li><a href="/accounts/logout">Logout</a></li>
-			{% else %}
-			<li><a href="/accounts/login">Login</a></li>
-			<li><a href="/accounts/register">Register</a></li>
-			{% endif %}
-			<li><a href="/admin">Admin</a></li>
+			<li><a href="/gen/">PicsGen</a></li>
 		</ul>
 	</div>
 </nav>
