@@ -35,7 +35,7 @@
 								
 							{% empty %}
 								<h3>You have got no subdomain yet.</h3>	
-								<table>
+								<table >
 									<form action="." method="POST">
 										{% csrf_token %}
 										{{form.as_table}}
@@ -47,6 +47,53 @@
 									</form>
 								</table>
 						{% endfor %}
+					</div>
+					<div class="panel panel-footer">
+						{% for rec in records_in_dnsimple %}
+							{% if forloop.first %}
+								<table border="1">
+									<tr>
+										<td width="100">Site Name</td>
+										<td width="100">Type</td>
+										<td width="200">Content</td>
+										<td width="100">Manage</td>
+									</tr>
+									{% endif %}
+									<tr>
+										<td>{{rec.name}}</td>
+										<td>{{rec.type}}</td>
+										<td>{{rec.content}}</td>
+										<td><a href="/delrecord/{{rec.id}}">Delete</a></td>
+									</tr>
+							{% if forloop.last %}
+								</table>
+							{% endif %}
+								
+							{% empty %}
+								<h3>You have got no DNS records yet.</h3>	
+						{% endfor %}
+						{% if main_subdomain %}
+							<table>
+								<form action="/addrecord/{{main_subdomain}}/" method="POST">
+									{% csrf_token %}
+									<tr>
+										<td colspan="2">
+											Record(IP) : <input type="text" name="content" size=20>
+										</td>
+										<td>
+											Type:
+											<select name="record_type">
+												<option value="A">A</option>
+												<option value="NS">NS</option>
+											</select>
+										</td>
+										<td>
+											<input type="submit" value="Add">
+										</td>
+									</tr>
+								</form>
+							</table>
+						{% endif %}
 					</div>
 				</div>
             </div>

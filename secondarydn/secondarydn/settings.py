@@ -116,3 +116,6 @@ EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 DEFAULT_FROM_EMAIL = "xxjkzs@foxmail.com" 
 
 ACCOUNT_ACTIVATION_DAYS = 7
+
+DNSIMPLE_USERNAME = ''
+DNSIMPLE_PASSWORD = ''

@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'accounts/profile/$',views.index),
     url(r'dnsmanager/$',views.dnsmanager),
     url(r'delsubdomain/(\w+)/$',views.del_subdomain),
+    url(r'delrecord/(\d+)/$',views.del_record),
+    url(r'addrecord/(\w+)/$',views.add_record),
 ]
