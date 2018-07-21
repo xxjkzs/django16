@@ -7,6 +7,14 @@
 		{% endfor %}
 		{% load staticfiles %}
 		{% static "" as base_url %}
+		<script>
+			$(document).ready(function(){
+				$('#id_backfile').change(function(){
+					$('#show_back_image').html('<img src="'+'/static/backimages/'+
+						$(this).find(':selected').val()+'"width="100%">');
+				});
+			});
+		</script>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
@@ -49,7 +57,7 @@
 										<div class="panel-heading">
 											<h4>Background Image:</h4>
 										</div>
-										<div class="panel-body">
+										<div class="panel-body" id="show_back_image">
 											<img src="{% static 'backimages/back1.jpg' %}" width="100%" >
 										</div>
 									</div>

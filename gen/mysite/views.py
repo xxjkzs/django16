@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib import auth
 from django.http import HttpResponse
-import os,random
+import os,random,glob
 from PIL import Image, ImageDraw, ImageFont
 from uuid_upload_path import uuid
 from mysite import models,forms
@@ -29,17 +29,18 @@ def index(request):
 
 def gen(request):
 	messages.get_messages(request)
-
+	backfiles = glob.glob(os.path.join(settings.BASE_DIR,'static/backimages/*.jpg'))
 	if request.method == 'POST':
 		form = forms.GenForm(request.POST)
 		if form.is_valid():
-			saved_filename = merge_pic(request.POST.get('msg'),
+			saved_filename = merge_pic(request.POST.get('backfile'),
+				request.POST.get('msg'),
 				int(request.POST.get('font_size')),
 				int(request.POST.get('x')),
 				int(request.POST.get('y'))
 				)
 	else:
-		form = forms.GenForm()
+		form = forms.GenForm(backfiles)
 
 	template = get_template('gen.html')
 	request_context = RequestContext(request)
@@ -49,7 +50,7 @@ def gen(request):
 	return HttpResponse(html)
 
 
-def merge_pic(msg,font_size,x,y):
+def merge_pic(filename,msg,font_size,x,y):
 	fill = (0,0,0,255)
 	image_file = Image.open(os.path.join(settings.BASE_DIR,'static/backimages/back1.jpg'))
 	im_w, im_h = image_file.size
