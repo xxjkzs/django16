@@ -33,13 +33,16 @@ def gen(request):
 	backfiles = glob.glob(os.path.join(settings.BASE_DIR,'static/backimages/*.jpg'))
 	if request.method == 'POST':
 		form = forms.GenForm(request.POST)
-		if form.is_valid():
-			saved_filename = merge_pic(request.POST.get('backfile'),
-				request.POST.get('msg'),
-				int(request.POST.get('font_size')),
-				int(request.POST.get('x')),
-				int(request.POST.get('y'))
-				)
+		back_file = os.path.join(settings.BASE_DIR,
+            'static/backimages/', 
+            request.POST.get('backfile'))
+
+		saved_filename = merge_pic(back_file,
+			request.POST.get('msg'),
+			int(request.POST.get('font_size')),
+			int(request.POST.get('x')),
+			int(request.POST.get('y'))
+			)
 	else:
 		form = forms.GenForm(backfiles)
 
@@ -51,9 +54,12 @@ def gen(request):
 	return HttpResponse(html)
 
 
-def merge_pic(filename,msg,font_size,x,y):
+def merge_pic(image_file,msg,font_size,x,y):
 	fill = (0,0,0,255)
-	image_file = Image.open(os.path.join(settings.BASE_DIR,'static/backimages/',filename))
+	try:
+		image_file = Image.open(image_file)
+	except:
+		image_file = Image.open(os.path.join(settings.BASE_DIR,'static/backimages/back1.jpg'))
 	im_w, im_h = image_file.size
 	im0 = Image.new('RGBA',(1,1))
 	dw0 = ImageDraw.Draw(im0)
