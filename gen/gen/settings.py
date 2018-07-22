@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mysite',
+    'anymail',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -108,3 +109,15 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+ANYMAIL = {
+    "MAILGUN_API_KEY": "",
+    "MAILGUN_SENDER_DOMAIN": '', 
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  
+DEFAULT_FROM_EMAIL = "xxjkzs@foxmail.com" 
+
+ACCOUNT_ACTIVATION_DAYS = 7
+
+DNSIMPLE_USERNAME = ''
+DNSIMPLE_PASSWORD = ''

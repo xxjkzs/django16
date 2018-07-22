@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}  Generate it. {% endblock title %}
+{% block title %}  Generate it. -- VIP functions {% endblock title %}
 {% block content %}
 	<div class="container">
 		{% for message in messages %}
@@ -7,14 +7,6 @@
 		{% endfor %}
 		{% load staticfiles %}
 		{% static "" as base_url %}
-		<script>
-			$(document).ready(function(){
-				$('#id_backfile').change(function(){
-					$('#show_back_image').html('<img src="'+'/static/backimages/'+
-						$(this).find(':selected').val()+'"width="100%">');
-				});
-			});
-		</script>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
@@ -34,12 +26,33 @@
 
 					{% else %}
 					<div class="panel-heading" align="center">
-					     <h3>Input your words, press the button , can't be easier.</h3>
+					     <h3>Customize your backgroud image.</h3>
 					</div>
 					<div class="panel-body">
 						<table width="100%"> 
 							<tr>
-								<td width="50%">
+								<td width="50%"  style="vertical-align:top;">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											Chane backgroud.
+										</div>
+										<div class="panel-body">
+											<form action="." method="POST" enctype="multipart/form-data">
+												{% csrf_token %}
+												<table>
+													<tr>
+														<td>
+															{{upload_form.as_p}}
+														</td>
+														<td>
+															<input type="submit" value="Change" name="change_backfile">
+														</td>
+													</tr>
+												</table>
+											</form>
+										</div>
+									</div>
+
 									<form action="." method="POST">
 										<table>
 											{% csrf_token %}
@@ -58,7 +71,11 @@
 											<h4>Background Image:</h4>
 										</div>
 										<div class="panel-body" id="show_back_image">
-											<img src="{% static 'backimages/back1.jpg' %}" width="100%" >
+											{% if custom_backfile %}
+												<img src="/media/{{ custom_backfile }}" width="100%">
+											{% else %}
+												<img src="{% static 'backimages/back1.jpg' %}" width="100%" >
+											{% endif %}	
 										</div>
 									</div>
 								</td>

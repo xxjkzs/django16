@@ -22,6 +22,9 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$',views.index),
     url(r'^gen/$',views.gen),
+    url(r'^vip/$',views.vip),
+    url(r'^accounts/',include('registration.backends.hmac.urls')),
+    url(r'^accounts/profile/$',views.index)
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
