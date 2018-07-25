@@ -26,4 +26,7 @@ urlpatterns = [
     # url(r'^post/(?P<post_data>\d{4}/\d{1,2}/\d{1,2}/\d{1,3})$',views.post),
     # url(r'^post/(\d{4})/(\d{1,2})/(\d{1,2})/(\d{1,3})$',views.post),
     url(r'^post/(\d{4})/(\d{1,2})/(\d{1,2})/(\d{1,3})$',views.home, name = 'post-url'),
+    url(r'(\d{1,2})/(\d{1})/(\d{1})/(\d{1})$',views.param),
+    url(r'^(\d{2})/(\d{2})$',views.add_2),
+    url(r'^(\d{1,3})/(cm|inch)$',views.convert),
 ]

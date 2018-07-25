@@ -26,7 +26,7 @@ def disp_detail(request,sku):
 	return HttpResponse(html)
 
 def index(request):
-	template = get_template('index')
+	template = get_template('index.html')
 	quotes = ['今日事，今日毕',
 			'知识就是力量',
 			'性格决定命运']

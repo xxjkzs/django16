@@ -34,3 +34,20 @@ def home(request,year,month,day,postid):
 	html = template.render()
 	# html = "<a href='{}'>Show the post</a>".format(reverse('post-url',args = (year,month,day,postid,)))
 	return HttpResponse(html)
+
+def param(request,page,sys,no,next):
+	html = "<p>page={}sys={}no={}next={}</p>".format(page,sys,no,next)
+	return HttpResponse(html)
+
+
+def add_2(request,n1,n2):
+	result = int(n1) + int(n2)
+	html = "<p>{}</p>".format(result)
+	return HttpResponse(html)
+
+def convert(request,num,unit):
+	if unit == 'inch':
+		html = "<p>{}{}</p>".format((float(num)*2.54),'cm')
+	else:
+		html = "<p>{}{}</p>".format((float(num)/2.54),'inch')
+	return HttpResponse(html)
